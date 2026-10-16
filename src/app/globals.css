@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cinematic-black: #090909;
+  --color-soft-white: #F8F8F6;
+  --color-charcoal: #242424;
+  --color-muted-grey: #858585;
+  --color-electric-blue: #4878E8;
+  --color-violet: #7864C9;
+  --color-pink: #D64B89;
+
+  --font-heading: var(--font-dotgothic), monospace, sans-serif;
+  --font-body: var(--font-alata), sans-serif;
+  --font-serif: var(--font-dotgothic), monospace, sans-serif;
+  --font-display: var(--font-alata), sans-serif;
+  --font-sans: var(--font-alata), sans-serif;
+}
+
+:root {
+  --bg-dark: #090909;
+  --bg-light: #F8F8F6;
+  --text-dark: #090909;
+  --text-light: #F8F8F6;
+  --accent-blue: #4878E8;
+  --accent-violet: #7864C9;
+  --accent-pink: #D64B89;
+}
+
+/* Custom smooth selection */
+::selection {
+  background: rgba(120, 100, 201, 0.4);
+  color: #FFFFFF;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-alata), sans-serif;
+  background-color: #090909;
+  color: #F8F8F6;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  font-family: var(--font-alata), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings: DotGothic16 Google Font */
+.font-editorial-serif,
+.font-heading,
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-dotgothic), monospace, sans-serif;
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+
+/* Body text, paragraphs, buttons, navigation and content: Alata Google Font */
+.font-editorial-sans,
+.font-body,
+p, span, a, button, input, textarea, select, label, li {
+  font-family: var(--font-alata), sans-serif;
+}
+
+/* Explicit class overrides if needed */
+.font-dotgothic {
+  font-family: var(--font-dotgothic), monospace, sans-serif !important;
+}
+
+.font-alata {
+  font-family: var(--font-alata), sans-serif !important;
+}
+
+/* Fluid Hero Headline Clamp optimized for DotGothic16 */
+.text-hero-giant {
+  font-size: clamp(2.5rem, 7.8vw + 0.5rem, 6.75rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+}
+
+.text-section-giant {
+  font-size: clamp(2.1rem, 5.2vw + 0.5rem, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+.text-subheading-editorial {
+  font-size: clamp(1.35rem, 2.5vw, 2.25rem);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+/* Reference 2 Gradient Accent: Blue -> Violet -> Pink */
+.gradient-accent {
+  background: linear-gradient(135deg, #4878E8 0%, #7864C9 45%, #D64B89 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.gradient-accent-bg {
+  background: linear-gradient(135deg, #4878E8 0%, #7864C9 45%, #D64B89 100%);
+}
+
+.gradient-accent-border {
+  border-image: linear-gradient(135deg, #4878E8 0%, #7864C9 45%, #D64B89 100%) 1;
+}
+
+/* Architectural Grid & Ambient Backdrops */
+.bg-ambient-glow {
+  background: radial-gradient(circle at 50% 30%, rgba(120, 100, 201, 0.12) 0%, rgba(72, 120, 232, 0.06) 35%, rgba(9, 9, 9, 0) 70%);
+}
+
+.bg-hero-grid {
+  background-size: 80px 80px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-light-architectural-grid {
+  background-size: 64px 64px;
+  background-image: 
+    linear-gradient(to right, rgba(9, 9, 9, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(9, 9, 9, 0.03) 1px, transparent 1px);
+}
+
+/* Fine Architectural Borders */
+.border-subtle-dark {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.border-subtle-light {
+  border-color: rgba(9, 9, 9, 0.08);
+}
+
+/* Marquee / Continuous Infinite Ticker */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Smooth Image Reveal & Hover Shimmer */
+.editorial-image-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.editorial-image-container img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+
+.editorial-image-container:hover img {
+  transform: scale(1.04);
+}
+
+/* Service Row Hover Animation */
+.service-row {
+  transition: background-color 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
+}
+
+.service-row:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+}
