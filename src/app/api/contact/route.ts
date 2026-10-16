@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
-import { Resend } from "resend";
+import { sendEnquiryEmail } from "@/lib/email";
+
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    // Validate body against Zod schema
+    // 1. Validate body against Zod schema
     const validationResult = contactFormSchema.safeParse(body);
 
     if (!validationResult.success) {
@@ -21,115 +22,72 @@ export async function POST(req: NextRequest) {
 
     const data = validationResult.data;
 
-    // Honeypot spam mitigation
+    // 2. Honeypot spam mitigation
     if (data.honeypot && data.honeypot.trim() !== "") {
       // Suspected spam bot filled hidden input
       return NextResponse.json(
-        { error: "Spam detection triggered." },
-        { status: 400 }
+        {
+          success: true,
+          message: "Your project inquiry has been received.",
+        },
+        { status: 200 }
       );
     }
 
-    const resendApiKey = process.env.RESEND_API_KEY;
+    // 3. Dispatch real email via configured service (SMTP or Resend)
+    const result = await sendEnquiryEmail({
+      fullName: data.fullName,
+      email: data.email,
+      company: data.company,
+      service: data.service,
+      budget: data.budget,
+      message: data.message,
+    });
 
-    // When RESEND_API_KEY is supplied, execute real delivery
-    if (resendApiKey) {
-      try {
-        const resend = new Resend(resendApiKey);
-        const fromEmail = process.env.RESEND_FROM_EMAIL || "TEKMAAN Inquiries <onboarding@resend.dev>";
-        const targetEmail = process.env.STUDIO_INBOX_EMAIL || process.env.NEXT_PUBLIC_STUDIO_EMAIL || "tekmaan.connect@gmail.com";
-
-        const { data: resendData, error: resendError } = await resend.emails.send({
-          from: fromEmail,
-          to: [targetEmail],
-          replyTo: data.email,
-          subject: `New Client Inquiry: ${data.fullName} [${data.service}]`,
-          text: `
-TEKMAAN Studio — New Client Project Enquiry
--------------------------------------------
-Client Name: ${data.fullName}
-Client Email: ${data.email}
-Company / Organization: ${data.company || "Not provided"}
-Selected Service: ${data.service}
-Budget Range: ${data.budget || "Not specified / Flexible"}
-
-Project Description:
-${data.message}
--------------------------------------------
-Target Studio Inbox: ${targetEmail}
-Timestamp: ${new Date().toISOString()}
-          `,
-          html: `
-            <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
-              <h2 style="color: #0b1020; margin-top: 0; font-size: 20px;">TEKMAAN Studio — New Client Project Enquiry</h2>
-              <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                <tr><td style="padding: 8px 0; color: #64748b; width: 150px;">Client Name:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.fullName}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b;">Client Email:</td><td style="padding: 8px 0; color: #5266f5;"><a href="mailto:${data.email}">${data.email}</a></td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b;">Company:</td><td style="padding: 8px 0; color: #0b1020;">${data.company || "Not provided"}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b;">Selected Service:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.service}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b;">Budget Range:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.budget || "Not specified / Flexible"}</td></tr>
-              </table>
-              <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <p style="margin: 0; font-weight: 600; color: #0b1020; margin-bottom: 8px;">Project Description:</p>
-                <p style="margin: 0; color: #334155; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
-              </div>
-            </div>
-          `,
-        });
-
-        if (resendError) {
-          console.error("[TEKMAAN Resend Error]:", resendError);
-          return NextResponse.json(
-            {
-              error: "Delivery failed",
-              message: "We encountered an error transmitting your message through our email gateway. Please contact us directly at " + (process.env.NEXT_PUBLIC_STUDIO_EMAIL || "tekmaan.connect@gmail.com"),
-              details: resendError.message,
-            },
-            { status: 502 }
-          );
-        }
-
-        return NextResponse.json({
-          success: true,
-          mode: "resend_delivered",
-          message: "Your inquiry has been transmitted directly to our senior engineering team at tekmaan.connect@gmail.com. We will respond within 24 hours.",
-        });
-      } catch (err: any) {
-        console.error("[TEKMAAN Email Gateway Exception]:", err);
+    if (!result.success) {
+      if (result.error?.startsWith("NO_CREDENTIALS")) {
+        console.warn("[TEKMAAN CONTACT API] Missing email credentials:", result.error);
         return NextResponse.json(
           {
-            error: "Email delivery failure",
-            message: "Failed to dispatch email. Please reach out directly to " + (process.env.NEXT_PUBLIC_STUDIO_EMAIL || "tekmaan.connect@gmail.com"),
+            error: "Service configuration pending",
+            message:
+              "Email service credentials are not yet configured in .env.local. Please email us directly at tekmaan.connect@gmail.com or WhatsApp +91 9063127547.",
+            details: "Missing RESEND_API_KEY or SMTP credentials in .env.local",
           },
-          { status: 500 }
+          { status: 503 }
         );
       }
-    }
 
-    // Fallback when RESEND_API_KEY is not yet configured in environment
-    console.log(
-      "[TEKMAAN CONTACT API] New Inquiry Recorded (Dev/Unconfigured Resend Mode):",
-      {
-        fullName: data.fullName,
-        email: data.email,
-        company: data.company,
-        service: data.service,
-        budget: data.budget,
-        messageLength: data.message.length,
-        receivedAt: new Date().toISOString(),
-      }
-    );
+      console.error(
+        `[TEKMAAN CONTACT API] Email delivery failed via ${result.provider}:`,
+        result.error
+      );
+      return NextResponse.json(
+        {
+          error: "Delivery failed",
+          message:
+            "We were unable to deliver your message through the automated gateway. Please reach out directly to tekmaan.connect@gmail.com or via WhatsApp at +91 9063127547.",
+          details: result.error,
+        },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
-      mode: "dev_logged",
+      provider: result.provider,
+      messageId: result.messageId,
       message:
-        "Thank you! Your project inquiry has been securely received by our studio system. (Note: RESEND_API_KEY environment variable is optional to route directly to an email inbox).",
+        "Your inquiry has been successfully transmitted directly to tekmaan.connect@gmail.com. We will respond within 24 hours.",
     });
   } catch (error: any) {
     console.error("[TEKMAAN Contact API Error]:", error);
     return NextResponse.json(
-      { error: "Internal server error occurred." },
+      {
+        error: "Internal server error occurred.",
+        message:
+          "An unexpected error occurred while processing your inquiry. Please reach out directly to tekmaan.connect@gmail.com.",
+      },
       { status: 500 }
     );
   }
