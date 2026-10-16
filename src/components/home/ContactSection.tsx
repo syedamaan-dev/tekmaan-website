@@ -11,7 +11,7 @@ export function ContactSection() {
     email: "",
     company: "",
     service: "Website Design",
-    budget: "$3,000 - $5,000",
+    budget: "",
     message: "",
     honeypot: "",
   });
@@ -81,7 +81,7 @@ export function ContactSection() {
       email: "",
       company: "",
       service: "Website Design",
-      budget: "$3,000 - $5,000",
+      budget: "",
       message: "",
       honeypot: "",
     });
@@ -135,23 +135,21 @@ export function ContactSection() {
               <p className="text-xs text-[#858585] mt-1">Average response time: under 24 hours</p>
             </div>
 
-            {siteConfig.contact.whatsappNumber && (
-              <div>
-                <span className="text-xs uppercase tracking-[0.25em] text-[#858585] block mb-2 font-semibold">
-                  DIRECT WHATSAPP
-                </span>
-                <a
-                  href={`https://wa.me/${siteConfig.contact.whatsappNumber.replace(/[^0-9]/g, "")}?text=Hi%20TEKMAAN,%20I'd%20like%20to%20discuss%20a%20new%20project.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-editorial-sans text-xl sm:text-2xl font-bold text-[#090909] hover:text-[#4878E8] transition-colors flex items-center gap-2"
-                >
-                  <span>{siteConfig.contact.whatsappNumber}</span>
-                  <ArrowUpRight className="w-5 h-5 text-[#858585]" />
-                </a>
-                <p className="text-xs text-[#858585] mt-1">For urgent project requirements &amp; quick discovery</p>
-              </div>
-            )}
+            <div>
+              <span className="text-xs uppercase tracking-[0.25em] text-[#858585] block mb-2 font-semibold">
+                PHONE &amp; WHATSAPP
+              </span>
+              <a
+                href="https://wa.me/919063127547"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-editorial-sans text-xl sm:text-2xl font-bold text-[#090909] hover:text-[#4878E8] transition-colors flex items-center gap-2"
+              >
+                <span>+91 9063127547</span>
+                <ArrowUpRight className="w-5 h-5 text-[#858585]" />
+              </a>
+              <p className="text-xs text-[#858585] mt-1">Available for direct calls and instant WhatsApp discussions</p>
+            </div>
 
             <div className="border border-black/10 p-6 space-y-3 bg-white/50">
               <span className="text-xs uppercase tracking-[0.2em] font-bold text-[#090909] block">
@@ -280,10 +278,12 @@ export function ContactSection() {
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-black/15 bg-[#F8F8F6] text-sm text-[#090909] focus:outline-none focus:border-[#090909] transition-colors"
                     >
-                      <option value="Under $3,000">Under $3,000</option>
-                      <option value="$3,000 - $5,000">$3,000 - $5,000</option>
-                      <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                      <option value="$10,000+">$10,000+</option>
+                      <option value="">Select budget range (optional)</option>
+                      <option value="Under ₹10,000">Under ₹10,000</option>
+                      <option value="₹10,000 – ₹25,000">₹10,000 – ₹25,000</option>
+                      <option value="₹25,000 – ₹50,000">₹25,000 – ₹50,000</option>
+                      <option value="₹50,000 – ₹1,00,000">₹50,000 – ₹1,00,000</option>
+                      <option value="₹1,00,000+">₹1,00,000+</option>
                       <option value="Flexible / To be discussed">Flexible / To be discussed</option>
                     </select>
                   </div>

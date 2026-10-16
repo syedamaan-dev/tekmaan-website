@@ -161,9 +161,17 @@ export function Navbar() {
                 <span className="block uppercase text-white mb-1">DIRECT INQUIRIES</span>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors block"
                 >
                   {siteConfig.contact.email}
+                </a>
+                <a
+                  href="https://wa.me/919063127547"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors block mt-1"
+                >
+                  WhatsApp: +91 9063127547 ↗
                 </a>
               </div>
               <div className="flex sm:justify-end items-center gap-6">

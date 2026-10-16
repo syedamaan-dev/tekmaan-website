@@ -82,6 +82,18 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <span className="block text-[11px] uppercase tracking-wider text-[#858585]">PHONE &amp; WHATSAPP</span>
+                <a
+                  href="https://wa.me/919063127547"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-[#7864C9] transition-colors flex items-center gap-2"
+                >
+                  <span>+91 9063127547</span>
+                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">WHATSAPP ↗</span>
+                </a>
+              </li>
+              <li>
                 <span className="block text-[11px] uppercase tracking-wider text-[#858585]">NETWORKS</span>
                 <div className="flex items-center gap-5 pt-1 uppercase tracking-wider">
                   <a

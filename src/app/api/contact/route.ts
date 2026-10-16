@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       try {
         const resend = new Resend(resendApiKey);
         const fromEmail = process.env.RESEND_FROM_EMAIL || "TEKMAAN Inquiries <onboarding@resend.dev>";
-        const targetEmail = process.env.STUDIO_INBOX_EMAIL || process.env.NEXT_PUBLIC_STUDIO_EMAIL || "contact@tekmaan.com";
+        const targetEmail = process.env.STUDIO_INBOX_EMAIL || process.env.NEXT_PUBLIC_STUDIO_EMAIL || "tekmaan.connect@gmail.com";
 
         const { data: resendData, error: resendError } = await resend.emails.send({
           from: fromEmail,
@@ -45,31 +45,32 @@ export async function POST(req: NextRequest) {
           replyTo: data.email,
           subject: `New Client Inquiry: ${data.fullName} [${data.service}]`,
           text: `
-TEKMAAN Studio — New Client Enquiry
------------------------------------
-Name: ${data.fullName}
-Email: ${data.email}
-Company: ${data.company || "Not provided"}
-Service Required: ${data.service}
-Budget Range: ${data.budget || "Not specified"}
+TEKMAAN Studio — New Client Project Enquiry
+-------------------------------------------
+Client Name: ${data.fullName}
+Client Email: ${data.email}
+Company / Organization: ${data.company || "Not provided"}
+Selected Service: ${data.service}
+Budget Range: ${data.budget || "Not specified / Flexible"}
 
-Project Details:
+Project Description:
 ${data.message}
------------------------------------
+-------------------------------------------
+Target Studio Inbox: ${targetEmail}
 Timestamp: ${new Date().toISOString()}
           `,
           html: `
             <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
-              <h2 style="color: #0b1020; margin-top: 0;">TEKMAAN Studio — New Client Enquiry</h2>
+              <h2 style="color: #0b1020; margin-top: 0; font-size: 20px;">TEKMAAN Studio — New Client Project Enquiry</h2>
               <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                <tr><td style="padding: 8px 0; color: #64748b; width: 140px;">Name:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.fullName}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b;">Email:</td><td style="padding: 8px 0; color: #5266f5;"><a href="mailto:${data.email}">${data.email}</a></td></tr>
+                <tr><td style="padding: 8px 0; color: #64748b; width: 150px;">Client Name:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.fullName}</td></tr>
+                <tr><td style="padding: 8px 0; color: #64748b;">Client Email:</td><td style="padding: 8px 0; color: #5266f5;"><a href="mailto:${data.email}">${data.email}</a></td></tr>
                 <tr><td style="padding: 8px 0; color: #64748b;">Company:</td><td style="padding: 8px 0; color: #0b1020;">${data.company || "Not provided"}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b;">Service:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.service}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b;">Budget Range:</td><td style="padding: 8px 0; color: #0b1020;">${data.budget || "Not specified"}</td></tr>
+                <tr><td style="padding: 8px 0; color: #64748b;">Selected Service:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.service}</td></tr>
+                <tr><td style="padding: 8px 0; color: #64748b;">Budget Range:</td><td style="padding: 8px 0; font-weight: 600; color: #0b1020;">${data.budget || "Not specified / Flexible"}</td></tr>
               </table>
               <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
-                <p style="margin: 0; font-weight: 600; color: #0b1020; margin-bottom: 8px;">Project Details:</p>
+                <p style="margin: 0; font-weight: 600; color: #0b1020; margin-bottom: 8px;">Project Description:</p>
                 <p style="margin: 0; color: #334155; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
               </div>
             </div>
@@ -81,7 +82,7 @@ Timestamp: ${new Date().toISOString()}
           return NextResponse.json(
             {
               error: "Delivery failed",
-              message: "We encountered an error transmitting your message through our email gateway. Please contact us directly at " + (process.env.NEXT_PUBLIC_STUDIO_EMAIL || "contact@tekmaan.com"),
+              message: "We encountered an error transmitting your message through our email gateway. Please contact us directly at " + (process.env.NEXT_PUBLIC_STUDIO_EMAIL || "tekmaan.connect@gmail.com"),
               details: resendError.message,
             },
             { status: 502 }
@@ -91,14 +92,14 @@ Timestamp: ${new Date().toISOString()}
         return NextResponse.json({
           success: true,
           mode: "resend_delivered",
-          message: "Your inquiry has been transmitted directly to our senior engineering team. We will respond within 24 hours.",
+          message: "Your inquiry has been transmitted directly to our senior engineering team at tekmaan.connect@gmail.com. We will respond within 24 hours.",
         });
       } catch (err: any) {
         console.error("[TEKMAAN Email Gateway Exception]:", err);
         return NextResponse.json(
           {
             error: "Email delivery failure",
-            message: "Failed to dispatch email. Please reach out directly to " + (process.env.NEXT_PUBLIC_STUDIO_EMAIL || "contact@tekmaan.com"),
+            message: "Failed to dispatch email. Please reach out directly to " + (process.env.NEXT_PUBLIC_STUDIO_EMAIL || "tekmaan.connect@gmail.com"),
           },
           { status: 500 }
         );

@@ -140,8 +140,10 @@ To activate production email delivery:
 2. In `.env.local` set:
    ```env
    RESEND_API_KEY="re_123456789..."
-   RESEND_FROM_EMAIL="TEKMAAN <inquiries@yourdomain.com>"
-   STUDIO_INBOX_EMAIL="your-inbox@yourdomain.com"
+   RESEND_FROM_EMAIL="TEKMAAN <onboarding@resend.dev>"
+   STUDIO_INBOX_EMAIL="tekmaan.connect@gmail.com"
+   NEXT_PUBLIC_STUDIO_EMAIL="tekmaan.connect@gmail.com"
+   NEXT_PUBLIC_WHATSAPP_NUMBER="+919063127547"
    ```
 
 ---
@@ -150,11 +152,13 @@ To activate production email delivery:
 
 1. Push your repository to GitHub, GitLab, or Bitbucket.
 2. Log into [vercel.com](https://vercel.com) and click **"Add New Project"**.
-3. Import the `tekmaan` repository.
+3. Import the `tekmaan-website` repository.
 4. Set the Framework Preset to **Next.js**.
 5. Under **Environment Variables**, add the variables from `.env.example`:
    - `NEXT_PUBLIC_SITE_URL`: Your production domain (e.g. `https://tekmaan.com`)
-   - `NEXT_PUBLIC_STUDIO_EMAIL`: Studio contact email
+   - `NEXT_PUBLIC_STUDIO_EMAIL`: Studio contact email (`tekmaan.connect@gmail.com`)
+   - `NEXT_PUBLIC_WHATSAPP_NUMBER`: WhatsApp chat number (`+919063127547`)
+   - `STUDIO_INBOX_EMAIL`: Destination inbox (`tekmaan.connect@gmail.com`)
    - `RESEND_API_KEY`: Your Resend API key (optional)
 6. Click **Deploy**. Vercel will build and distribute the site globally on edge nodes.
 

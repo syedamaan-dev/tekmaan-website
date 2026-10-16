@@ -61,9 +61,11 @@ export const siteConfig = {
   },
 
   contact: {
-    email: process.env.NEXT_PUBLIC_STUDIO_EMAIL || "contact@tekmaan.com",
-    whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919876543210",
-    githubUrl: "https://github.com/SyedAliHussain2001",
+    email: process.env.NEXT_PUBLIC_STUDIO_EMAIL || "tekmaan.connect@gmail.com",
+    phone: "+91 9063127547",
+    whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+91 9063127547",
+    whatsappLink: "https://wa.me/919063127547",
+    githubUrl: "https://github.com/syedamaan-dev",
     linkedinUrl: "https://www.linkedin.com/company/tekmaan",
   },
 
@@ -493,3 +495,13 @@ export const siteConfig = {
     },
   ],
 };
+
+export const budgetOptions = [
+  "Under ₹10,000",
+  "₹10,000 – ₹25,000",
+  "₹25,000 – ₹50,000",
+  "₹50,000 – ₹1,00,000",
+  "₹1,00,000+",
+  "Flexible / To be discussed",
+] as const;
+

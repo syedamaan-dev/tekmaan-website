@@ -283,12 +283,13 @@ function ContactFormInner() {
             disabled={isSubmitting}
             className="w-full px-4 py-3.5 rounded-xl bg-[#0B1020] border border-white/10 text-white text-sm focus:outline-none focus:border-[#41C9D7] focus:ring-1 focus:ring-[#41C9D7] transition-colors disabled:opacity-50"
           >
-            <option value="">Select an approximate scope or leave open...</option>
-            <option value="Under $2,500 (Rapid Landing Page / Advisory)">Under $2,500 (Rapid Landing Page / Advisory)</option>
-            <option value="$2,500 – $5,000 (Complete Business Website)">$2,500 – $5,000 (Complete Business Website)</option>
-            <option value="$5,000 – $10,000 (Full-Stack Web App / Custom Portal)">$5,000 – $10,000 (Full-Stack Web App / Custom Portal)</option>
-            <option value="$10,000+ (End-to-End Enterprise Architecture / AI Suite)">$10,000+ (End-to-End Enterprise Architecture / AI Suite)</option>
-            <option value="Undetermined / Let's discuss scope first">Undetermined / Let's discuss scope first</option>
+            <option value="">Select budget range (optional)...</option>
+            <option value="Under ₹10,000">Under ₹10,000</option>
+            <option value="₹10,000 – ₹25,000">₹10,000 – ₹25,000</option>
+            <option value="₹25,000 – ₹50,000">₹25,000 – ₹50,000</option>
+            <option value="₹50,000 – ₹1,00,000">₹50,000 – ₹1,00,000</option>
+            <option value="₹1,00,000+">₹1,00,000+</option>
+            <option value="Flexible / To be discussed">Flexible / To be discussed</option>
           </select>
         </div>
 
