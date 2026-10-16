@@ -126,41 +126,40 @@ tekmaan/
 
 ---
 
-## ✉️ Contact Form & Resend Setup
+## ✉️ Contact Form & Production SMTP Setup
 
-The contact system uses a multi-tier pipeline:
+The contact system uses a secure serverless pipeline:
 1. **Client & Server-Side Validation**: Guarded by `zod` in `src/lib/validations/contact.ts`.
-2. **Honeypot Anti-Spam**: Invisible form field traps automated bots with zero friction for human users.
-3. **Resend Email Gateway**:
-   - If `RESEND_API_KEY` is provided in `.env.local`, inquiries are dispatched directly to your destination inbox.
-   - If unconfigured, the endpoint securely logs the inquiry to the server console and returns an honest status (no fake delivery notifications).
+2. **Honeypot Anti-Spam**: Invisible honeypot field traps automated bots with zero friction for humans.
+3. **Sliding Window Rate Limiter**: Protects the API endpoint against request flooding.
+4. **Gmail SMTP Gateway (Nodemailer)**:
+   - Configured with `smtp.gmail.com`, SSL/TLS on port `465`.
+   - Authenticated sender: `syedamaan70627@gmail.com`.
+   - Destination inbox: `tekmaan.connect@gmail.com`.
+   - Visitor email set as `Reply-To` so replies from Gmail go directly to the visitor.
 
-To activate production email delivery:
-1. Sign up at [resend.com](https://resend.com) and create an API key.
-2. In `.env.local` set:
-   ```env
-   RESEND_API_KEY="re_123456789..."
-   RESEND_FROM_EMAIL="TEKMAAN <onboarding@resend.dev>"
-   STUDIO_INBOX_EMAIL="tekmaan.connect@gmail.com"
-   NEXT_PUBLIC_STUDIO_EMAIL="tekmaan.connect@gmail.com"
-   NEXT_PUBLIC_WHATSAPP_NUMBER="+919063127547"
-   ```
+### Production Environment Variables on Vercel:
+```env
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT="465"
+SMTP_USER="syedamaan70627@gmail.com"
+SMTP_APP_PASSWORD="your-16-char-google-app-password"
+SMTP_TO="tekmaan.connect@gmail.com"
+```
 
 ---
 
 ## ☁️ Vercel Deployment Instructions
 
-1. Push your repository to GitHub, GitLab, or Bitbucket.
-2. Log into [vercel.com](https://vercel.com) and click **"Add New Project"**.
-3. Import the `tekmaan-website` repository.
-4. Set the Framework Preset to **Next.js**.
-5. Under **Environment Variables**, add the variables from `.env.example`:
-   - `NEXT_PUBLIC_SITE_URL`: Your production domain (e.g. `https://tekmaan.com`)
-   - `NEXT_PUBLIC_STUDIO_EMAIL`: Studio contact email (`tekmaan.connect@gmail.com`)
-   - `NEXT_PUBLIC_WHATSAPP_NUMBER`: WhatsApp chat number (`+919063127547`)
-   - `STUDIO_INBOX_EMAIL`: Destination inbox (`tekmaan.connect@gmail.com`)
-   - `RESEND_API_KEY`: Your Resend API key (optional)
-6. Click **Deploy**. Vercel will build and distribute the site globally on edge nodes.
+1. Push your repository to GitHub (`syedamaan-dev/tekmaan-website`).
+2. Log into [vercel.com](https://vercel.com) and open the `tekmaan-website` project.
+3. Under **Settings → Environment Variables**, ensure the following variables are present:
+   - `SMTP_HOST`: `smtp.gmail.com`
+   - `SMTP_PORT`: `465`
+   - `SMTP_USER`: `syedamaan70627@gmail.com`
+   - `SMTP_APP_PASSWORD`: Your 16-character Google App Password (without spaces)
+   - `SMTP_TO`: `tekmaan.connect@gmail.com`
+4. Trigger a deployment. Vercel automatically deploys updates upon pushing to the `main` branch.
 
 ---
 

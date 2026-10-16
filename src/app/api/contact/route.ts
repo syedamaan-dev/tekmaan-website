@@ -1,19 +1,82 @@
 import { NextRequest, NextResponse } from "next/server";
 import { contactFormSchema } from "@/lib/validations/contact";
-import { sendEnquiryEmail } from "@/lib/email";
+import { sendEnquiryEmail, getSmtpConfig } from "@/lib/email";
 
+// Serverless-compatible sliding window rate limiter
+interface RateLimitEntry {
+  count: number;
+  firstRequest: number;
+}
+const rateLimitMap = new Map<string, RateLimitEntry>();
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const MAX_REQUESTS_PER_WINDOW = 5;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  // Periodic cleanup if map grows
+  if (rateLimitMap.size > 1000) {
+    for (const [key, value] of rateLimitMap.entries()) {
+      if (now - value.firstRequest > RATE_LIMIT_WINDOW_MS) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+
+  if (!entry) {
+    rateLimitMap.set(ip, { count: 1, firstRequest: now });
+    return false;
+  }
+
+  if (now - entry.firstRequest > RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, firstRequest: now });
+    return false;
+  }
+
+  if (entry.count >= MAX_REQUESTS_PER_WINDOW) {
+    return true;
+  }
+
+  entry.count++;
+  return false;
+}
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    // 1. Serverless-compatible rate limit check
+    const forwarded = req.headers.get("x-forwarded-for");
+    const ip = forwarded ? forwarded.split(",")[0].trim() : "anonymous";
 
-    // 1. Validate body against Zod schema
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        {
+          error: "Rate limit reached",
+          message:
+            "Too many requests received from this connection. Please wait a few moments or email us directly at tekmaan.connect@gmail.com.",
+        },
+        { status: 429 }
+      );
+    }
+
+    // 2. Parse & validate request body with Zod
+    const body = await req.json().catch(() => null);
+    if (!body) {
+      return NextResponse.json(
+        {
+          error: "Invalid payload",
+          message: "Request body must be valid JSON.",
+        },
+        { status: 400 }
+      );
+    }
+
     const validationResult = contactFormSchema.safeParse(body);
-
     if (!validationResult.success) {
       return NextResponse.json(
         {
           error: "Validation failed",
+          message: "Please complete all required fields correctly.",
           details: validationResult.error.flatten().fieldErrors,
         },
         { status: 400 }
@@ -22,9 +85,9 @@ export async function POST(req: NextRequest) {
 
     const data = validationResult.data;
 
-    // 2. Honeypot spam mitigation
+    // 3. Honeypot anti-spam defense
     if (data.honeypot && data.honeypot.trim() !== "") {
-      // Suspected spam bot filled hidden input
+      // Spam bot filled hidden input; return simulated success without sending
       return NextResponse.json(
         {
           success: true,
@@ -34,7 +97,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. Dispatch real email via configured service (SMTP or Resend)
+    // 4. Send enquiry via production SMTP
     const result = await sendEnquiryEmail({
       fullName: data.fullName,
       email: data.email,
@@ -45,50 +108,68 @@ export async function POST(req: NextRequest) {
     });
 
     if (!result.success) {
-      if (result.error?.startsWith("NO_CREDENTIALS")) {
-        console.warn("[TEKMAAN CONTACT API] Missing email credentials:", result.error);
+      if (result.error === "SMTP_NOT_CONFIGURED") {
+        console.error(
+          "[TEKMAAN SMTP API] Missing production environment variables:",
+          result.missingVariables
+        );
         return NextResponse.json(
           {
             error: "Service configuration pending",
             message:
-              "Email service credentials are not yet configured in .env.local. Please email us directly at tekmaan.connect@gmail.com or WhatsApp +91 9063127547.",
-            details: "Missing RESEND_API_KEY or SMTP credentials in .env.local",
+              "Unable to deliver your enquiry at this moment. Please reach out to us directly at tekmaan.connect@gmail.com or via WhatsApp at +91 9063127547.",
+            missingVariables: result.missingVariables,
           },
           { status: 503 }
         );
       }
 
-      console.error(
-        `[TEKMAAN CONTACT API] Email delivery failed via ${result.provider}:`,
-        result.error
-      );
+      console.error("[TEKMAAN SMTP API] Delivery error:", result.error);
       return NextResponse.json(
         {
           error: "Delivery failed",
           message:
-            "We were unable to deliver your message through the automated gateway. Please reach out directly to tekmaan.connect@gmail.com or via WhatsApp at +91 9063127547.",
+            "We were unable to deliver your message at this time. Please contact us directly at tekmaan.connect@gmail.com or on WhatsApp at +91 9063127547.",
           details: result.error,
         },
         { status: 502 }
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      provider: result.provider,
-      messageId: result.messageId,
-      message:
-        "Your inquiry has been successfully transmitted directly to tekmaan.connect@gmail.com. We will respond within 24 hours.",
-    });
-  } catch (error: any) {
-    console.error("[TEKMAAN Contact API Error]:", error);
     return NextResponse.json(
       {
-        error: "Internal server error occurred.",
+        success: true,
+        smtpAccepted: true,
+        messageId: result.messageId,
         message:
-          "An unexpected error occurred while processing your inquiry. Please reach out directly to tekmaan.connect@gmail.com.",
+          "Your inquiry has been successfully transmitted directly to tekmaan.connect@gmail.com. We will respond within 24 hours.",
+      },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("[TEKMAAN Contact API Unexpected Error]:", error);
+    return NextResponse.json(
+      {
+        error: "Internal server error",
+        message:
+          "An unexpected error occurred. Please reach out directly to tekmaan.connect@gmail.com or via WhatsApp at +91 9063127547.",
       },
       { status: 500 }
     );
   }
+}
+
+// GET endpoint to verify SMTP configuration availability (non-sensitive verification)
+export async function GET() {
+  const config = getSmtpConfig();
+  return NextResponse.json({
+    status: "ok",
+    smtpConfigured: config.isConfigured,
+    smtpHost: config.host,
+    smtpPort: config.port,
+    smtpUserConfigured: !!config.user,
+    smtpPassConfigured: !!config.pass,
+    smtpTo: config.to,
+    missingVariables: config.missing,
+  });
 }
