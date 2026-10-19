@@ -1,153 +1,105 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <footer className="relative w-full bg-[#090909] text-white pt-24 pb-12 px-6 sm:px-8 lg:px-12 border-t border-white/10 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* Top Grid: Columns for Navigation, Direct Reach, Studio Info */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 pb-20 border-b border-white/10">
-          {/* Studio positioning */}
-          <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-baseline gap-2">
-              <span className="font-editorial-serif text-3xl font-extrabold tracking-tight text-white">
-                TEKMAAN
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7864C9]" />
+    <footer className="border-t border-[#1c1f26] bg-[#000000] py-14 md:py-16 text-[#9ca3af]">
+      <div className="mx-auto max-w-[1200px] px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 pb-12 border-b border-[#1c1f26]/60">
+          {/* Col 1: Wordmark & Studio Tag */}
+          <div className="md:col-span-5 flex flex-col justify-between">
+            <div>
+              <Link href="#home" className="inline-flex items-center gap-1.5 focus:outline-none mb-3">
+                <span className="font-syne font-extrabold text-2xl text-white tracking-tight">
+                  {siteConfig.name}
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ff6a00] inline-block shadow-[0_0_8px_#ff6a00]" />
+              </Link>
+              <p className="text-xs text-[#9ca3af] max-w-[340px] leading-relaxed mt-2">
+                An independent, founder-led digital studio delivering thoughtfully designed, high-performance web applications and modern digital products.
+              </p>
             </div>
-            <p className="text-sm text-[#858585] font-editorial-sans leading-relaxed max-w-sm">
-              Independent digital technology studio crafting high-performance websites, bespoke portals,
-              and intelligent software interfaces.
-            </p>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#858585] pt-2">
-              EST. {siteConfig.identity.established} — {siteConfig.identity.location}
-            </p>
+
+            <div className="mt-6 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#22c55e]" />
+              <span className="font-mono text-[11px] text-[#9ca3af]/80 uppercase tracking-widest">
+                Available for New Engagements &bull; 2026
+              </span>
+            </div>
           </div>
 
-          {/* Navigation Links */}
-          <div className="lg:col-span-3 space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] text-white block font-semibold">
-              NAVIGATION
+          {/* Col 2: Navigation Links */}
+          <div className="md:col-span-3">
+            <span className="font-mono text-[11px] font-bold text-white uppercase tracking-widest block mb-4">
+              Navigation
             </span>
-            <ul className="space-y-2.5 text-xs uppercase tracking-[0.2em] font-editorial-sans text-[#858585]">
-              <li>
-                <Link href="#work" className="hover:text-white transition-colors">
-                  01 // WORK
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="hover:text-white transition-colors">
-                  02 // SERVICES
-                </Link>
-              </li>
-              <li>
-                <Link href="#about" className="hover:text-white transition-colors">
-                  03 // ABOUT
-                </Link>
-              </li>
-              <li>
-                <Link href="#process" className="hover:text-white transition-colors">
-                  04 // PROCESS
-                </Link>
-              </li>
-              <li>
-                <Link href="#contact" className="hover:text-white transition-colors">
-                  05 // CONTACT
-                </Link>
-              </li>
+            <ul className="space-y-2.5">
+              {siteConfig.nav.map((item) => (
+                <li key={item.title}>
+                  <Link
+                    href={item.href}
+                    className="font-mono text-xs text-[#9ca3af] hover:text-[#ff6a00] transition-colors"
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Connect & Direct Reach */}
-          <div className="lg:col-span-4 space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] text-white block font-semibold">
-              DIRECT CHANNELS
+          {/* Col 3: Direct Connect */}
+          <div className="md:col-span-4">
+            <span className="font-mono text-[11px] font-bold text-white uppercase tracking-widest block mb-4">
+              Direct Contact
             </span>
-            <ul className="space-y-3 text-xs font-editorial-sans text-[#858585]">
-              <li>
-                <span className="block text-[11px] uppercase tracking-wider text-[#858585]">EMAIL</span>
+            <div className="space-y-2 text-xs font-mono">
+              <p className="text-[#9ca3af]/70">
+                Email:{" "}
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="text-white hover:text-[#7864C9] transition-colors"
+                  className="text-white hover:text-[#ff6a00] transition-colors"
                 >
                   {siteConfig.contact.email}
                 </a>
-              </li>
-              <li>
-                <span className="block text-[11px] uppercase tracking-wider text-[#858585]">PHONE &amp; WHATSAPP</span>
+              </p>
+              <p className="text-[#9ca3af]/70">
+                WhatsApp:{" "}
                 <a
-                  href="https://wa.me/919063127547"
+                  href={siteConfig.contact.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white hover:text-[#7864C9] transition-colors flex items-center gap-2"
+                  className="text-white hover:text-[#ff6a00] transition-colors"
                 >
-                  <span>+91 9063127547</span>
-                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">WHATSAPP ↗</span>
+                  {siteConfig.contact.phone}
                 </a>
-              </li>
-              <li>
-                <span className="block text-[11px] uppercase tracking-wider text-[#858585]">NETWORKS</span>
-                <div className="flex items-center gap-5 pt-1 uppercase tracking-wider">
-                  <a
-                    href={siteConfig.contact.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-[#7864C9] transition-colors"
-                  >
-                    GITHUB ↗
-                  </a>
-                  <a
-                    href={siteConfig.contact.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-[#7864C9] transition-colors"
-                  >
-                    LINKEDIN ↗
-                  </a>
-                </div>
-              </li>
-            </ul>
+              </p>
+              <p className="text-[#9ca3af]/70">
+                Domain:{" "}
+                <a
+                  href={siteConfig.contact.website}
+                  className="text-white hover:text-[#ff6a00] transition-colors"
+                >
+                  {siteConfig.contact.displayWebsite}
+                </a>
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Massive Editorial TEKMAAN Wordmark */}
-        <div className="py-12 sm:py-20 select-none overflow-hidden">
-          <h2 className="font-editorial-serif text-[14vw] leading-[1] tracking-normal text-white/10 hover:text-white/20 transition-colors duration-700 text-center uppercase whitespace-nowrap">
-            TEKMAAN
-          </h2>
-        </div>
-
-        {/* Bottom Bar: Copyright & Back-to-Top Control */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#858585] font-editorial-sans">
-          <p>© 2026 TEKMAAN STUDIO. ALL RIGHTS RESERVED.</p>
-
+        {/* Bottom Bar */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#9ca3af]/60">
+          <p>
+            &copy; 2026 {siteConfig.name}. All rights reserved.
+          </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">
-              PRIVACY POLICY
+              Privacy Policy
             </Link>
+            <span>&bull;</span>
             <Link href="/terms" className="hover:text-white transition-colors">
-              TERMS OF SERVICE
+              Terms &amp; Conditions
             </Link>
-
-            {/* Back to top control */}
-            <button
-              onClick={scrollToTop}
-              className="group flex items-center gap-2 text-white hover:text-[#7864C9] transition-colors cursor-pointer"
-              aria-label="Back to top"
-            >
-              <span className="uppercase tracking-[0.2em]">BACK TO TOP</span>
-              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-                <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
-              </div>
-            </button>
           </div>
         </div>
       </div>

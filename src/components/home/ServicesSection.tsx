@@ -1,151 +1,122 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { siteConfig, ServiceItem } from "@/config/site";
-import { cn } from "@/lib/utils";
+import {
+  Globe,
+  Layers,
+  Palette,
+  LayoutDashboard,
+  Cpu,
+  Wrench,
+  ArrowUpRight,
+  CheckCircle2,
+} from "lucide-react";
+import { siteConfig } from "@/config/site";
+
+const serviceIcons = {
+  "01": Globe,
+  "02": Layers,
+  "03": Palette,
+  "04": LayoutDashboard,
+  "05": Cpu,
+  "06": Wrench,
+};
 
 export function ServicesSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
-    <section
-      id="services"
-      className="relative w-full bg-[#090909] text-white pt-24 sm:pt-36 pb-24 sm:pb-36 px-6 sm:px-8 lg:px-12 overflow-hidden border-t border-white/10"
-    >
-      {/* Ambient background light */}
-      <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-[#7864C9]/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto">
+    <section id="services" className="py-24 md:py-36 relative">
+      <div className="mx-auto max-w-[1200px] px-6 md:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-white/10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <span className="text-xs uppercase tracking-[0.28em] text-[#858585] font-editorial-sans block mb-4">
-              03 / CAPABILITIES &amp; SPECIALISATIONS
+            <span className="text-[12px] text-[#ff6a00] font-mono font-medium tracking-[0.2em] uppercase block mb-3">
+              Capabilities &amp; Services
             </span>
-            <h2 className="font-editorial-serif text-section-giant text-white">
-              WHAT WE
-              <br />
-              DO BEST.
+            <h2 className="text-fluid-h1 font-bold text-white font-playfair max-w-[580px] leading-tight">
+              Engineered for impact.<br />
+              <span className="text-[#ff6a00]">Built to scale.</span>
             </h2>
           </div>
-
-          <div className="max-w-md">
-            <p className="text-sm text-[#858585] leading-relaxed font-editorial-sans">
-              We bridge aesthetic elegance and rock-solid software engineering. Every engagement
-              receives direct architectural leadership and end-to-end execution.
-            </p>
-          </div>
+          <p className="text-fluid-body text-[#9ca3af] max-w-[380px] md:text-right">
+            From bespoke interactive websites to complex multi-tenant web applications, we provide end-to-end technical execution.
+          </p>
         </div>
 
-        {/* Six Animated Service Rows */}
-        <div className="mt-8 flex flex-col divide-y divide-white/10 border-b border-white/10">
-          {siteConfig.services.map((service: ServiceItem, index: number) => {
-            const isHovered = hoveredIndex === index;
-
+        {/* 6 Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {siteConfig.services.map((service) => {
+            const Icon = serviceIcons[service.number as keyof typeof serviceIcons] || Globe;
             return (
-              <motion.div
+              <div
                 key={service.id}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="group relative py-10 sm:py-14 transition-colors duration-300"
+                className="group rounded-2xl border border-[#1c1f26] bg-[#0a0a0a]/80 p-7 flex flex-col justify-between hover:border-[#ff6a00]/50 hover:bg-[#0c0d11] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:-translate-y-1 relative overflow-hidden"
               >
-                {/* Background hover light highlight */}
+                {/* Subtle top corner gradient on hover */}
                 <div
-                  className={cn(
-                    "absolute inset-0 bg-white/[0.015] pointer-events-none transition-opacity duration-300",
-                    isHovered ? "opacity-100" : "opacity-0"
-                  )}
+                  className="absolute top-0 right-0 w-32 h-32 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(255, 106, 0, 0.12) 0%, transparent 70%)",
+                  }}
                 />
 
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start sm:items-center">
-                  {/* Service Number & Category */}
-                  <div className="lg:col-span-2 flex items-baseline gap-4">
-                    <span className="text-sm font-mono text-[#858585] group-hover:text-white transition-colors">
-                      {service.number}
+                <div>
+                  {/* Top line: Number and Icon */}
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-xs font-bold text-[#ff6a00] tracking-widest">
+                      // {service.number}
                     </span>
-                    <span className="text-xs uppercase tracking-[0.2em] text-[#858585] group-hover:text-[#7864C9] transition-colors">
-                      {service.category}
-                    </span>
-                  </div>
-
-                  {/* Giant Title */}
-                  <div className="lg:col-span-5">
-                    <h3 className="font-editorial-serif text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-white transition-all duration-300">
-                      {service.title}
-                    </h3>
-                  </div>
-
-                  {/* Short description & Key Deliverables */}
-                  <div className="lg:col-span-4 space-y-3">
-                    <p className="text-sm text-[#858585] group-hover:text-[#F8F8F6] leading-relaxed transition-colors duration-300 font-editorial-sans">
-                      {service.shortDesc}
-                    </p>
-
-                    {/* Tech Pills */}
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {service.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border border-white/10 text-[#858585] group-hover:border-white/20 group-hover:text-white transition-colors"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="w-10 h-10 rounded-xl bg-[#14171d] border border-[#262626] flex items-center justify-center text-[#ff6a00] group-hover:border-[#ff6a00]/40 transition-colors">
+                      <Icon className="w-5 h-5" />
                     </div>
                   </div>
 
-                  {/* Right Arrow Button */}
-                  <div className="lg:col-span-1 flex justify-start lg:justify-end">
-                    <Link
-                      href="#contact"
-                      className="w-12 h-12 rounded-full border border-white/15 flex items-center justify-center text-white/70 group-hover:border-white group-hover:text-white group-hover:bg-white/[0.08] transition-all duration-300"
-                      aria-label={`Inquire about ${service.title}`}
-                    >
-                      <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
+                  {/* Title */}
+                  <h3 className="text-xl font-bold font-syne text-white mb-3 group-hover:text-[#ff6a00] transition-colors">
+                    {service.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm text-[#9ca3af] leading-relaxed mb-6">
+                    {service.shortDesc}
+                  </p>
+
+                  {/* Deliverables Checklist */}
+                  <div className="space-y-2 mb-6 pt-2 border-t border-[#1c1f26]">
+                    {service.deliverables.slice(0, 3).map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-xs text-[#eaeaea]/80">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#ff6a00] shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Expanded deliverables on hover */}
-                <AnimatePresence>
-                  {isHovered && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="relative z-10 pt-6 mt-6 border-t border-white/5 overflow-hidden"
-                    >
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-[#858585]">
-                        {service.deliverables.map((deliv, dIdx) => (
-                          <div key={dIdx} className="flex items-center gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#7864C9] shrink-0" />
-                            <span>{deliv}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                {/* Footer: Tech Stack Tags & Action */}
+                <div className="pt-4 border-t border-[#1c1f26]/80 flex items-center justify-between gap-2 mt-auto">
+                  <div className="flex flex-wrap gap-1.5">
+                    {service.techStack.slice(0, 3).map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#14171d] text-[#9ca3af] border border-[#222630]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href="#contact"
+                    className="w-8 h-8 rounded-full border border-[#262626] flex items-center justify-center text-[#9ca3af] group-hover:text-white group-hover:border-[#ff6a00] group-hover:bg-[#ff6a00]/10 transition-all shrink-0"
+                    aria-label={`Inquire about ${service.title}`}
+                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
             );
           })}
-        </div>
-
-        {/* Bottom studio CTA */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 text-xs font-editorial-sans text-[#858585]">
-          <span className="uppercase tracking-[0.2em]">
-            HAVE A BESPOKE ARCHITECTURAL OR SOFTWARE REQUIREMENT?
-          </span>
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-2 text-white hover:text-[#7864C9] transition-colors uppercase tracking-[0.2em] font-semibold"
-          >
-            <span>START A CONVERSATION ↗</span>
-          </Link>
         </div>
       </div>
     </section>
