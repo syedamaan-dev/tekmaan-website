@@ -1,92 +1,123 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
-import { siteConfig } from "@/config/site";
+import { motion, useScroll, useTransform } from "motion/react";
+import { ArrowUpRight, ArrowDown } from "lucide-react";
 
 export function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const opacityText = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
+
   return (
     <section
-      id="home"
-      className="relative flex items-center justify-center min-h-[90dvh] overflow-hidden py-16 md:py-24"
+      ref={containerRef}
+      className="relative min-h-screen w-full bg-[#090909] text-white flex flex-col justify-between pt-32 pb-14 px-6 sm:px-8 lg:px-12 overflow-hidden bg-hero-grid"
     >
-      {/* Background Subtle Gradient & Ambience */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-40"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(255, 106, 0, 0.08), transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 0%, rgba(255, 106, 0, 0.04) 0%, transparent 60%)",
-        }}
-        aria-hidden="true"
-      />
+      {/* Ambient background light gradients */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-[#4878E8]/10 via-[#7864C9]/15 to-[#D64B89]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-[#4878E8]/8 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="mx-auto max-w-[1200px] w-full px-6 md:px-12 relative z-10 flex flex-col items-center justify-center text-center">
-        {/* Eyebrow Studio Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a0a0a] border border-[#1c1f26] mb-8 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-[#ff6a00] animate-pulse" />
-          <span className="font-mono text-[11px] font-bold tracking-widest text-[#9ca3af] uppercase">
-            Independent Digital Studio &bull; Est. 2026
+      {/* Top subtle eyebrow */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="max-w-7xl mx-auto w-full pt-4"
+      >
+        <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#7864C9] animate-pulse" />
+          <span className="text-[11px] uppercase tracking-[0.28em] text-[#858585] font-editorial-sans font-medium">
+            INDEPENDENT DIGITAL STUDIO — EST. 2026
           </span>
         </div>
+      </motion.div>
 
-        {/* Hero Headline */}
-        <h1 className="text-fluid-display font-extrabold text-white font-syne select-none text-center flex flex-col items-center justify-center max-w-[900px] leading-[1.05]">
-          <span className="block tracking-tight">We Build.</span>
-          <span className="block mt-1 font-curvy text-[#ff6a00] text-[1.05em] font-normal tracking-normal">
-            You Grow.
-          </span>
+      {/* Main Hero Headline (Reference 2 style) */}
+      <motion.div
+        style={{ y: yText, opacity: opacityText }}
+        className="max-w-7xl mx-auto w-full my-auto py-10 sm:py-16"
+      >
+        <h1 className="font-editorial-serif text-hero-giant select-none">
+          {/* Line 1: CRAFTING DIGITAL */}
+          <div className="overflow-hidden py-1">
+            <motion.div
+              initial={{ y: "115%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              className="flex flex-wrap items-baseline gap-x-4 sm:gap-x-7"
+            >
+              <span className="text-white">CRAFTING</span>
+              <span className="gradient-accent">DIGITAL</span>
+            </motion.div>
+          </div>
+
+          {/* Line 2: EXPERIENCES */}
+          <div className="overflow-hidden py-1 mt-1 sm:mt-2">
+            <motion.div
+              initial={{ y: "115%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+              className="text-white"
+            >
+              EXPERIENCES
+            </motion.div>
+          </div>
         </h1>
 
-        {/* Short Agency Intro */}
-        <p className="mt-6 text-fluid-body-lg text-[#9ca3af] max-w-[620px] mx-auto text-center leading-relaxed">
-          A simpler way to turn ambitious ideas into reliable, well-built digital products.
-          We engineer modern websites, full-stack web applications, and thoughtful digital solutions.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-          <Link
-            href="#contact"
-            className="btn-primary w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-8"
-          >
-            <span>Start a Project</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </Link>
+        {/* Supporting description & Call to action */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.45, ease: "easeOut" }}
+          className="mt-8 sm:mt-12 max-w-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-8 pt-6 border-t border-white/10"
+        >
+          <p className="text-sm sm:text-base text-[#858585] leading-relaxed font-editorial-sans max-w-md">
+            We create distinctive websites, powerful digital products, and thoughtful
+            technology solutions for ambitious ideas.
+          </p>
 
           <Link
-            href="#services"
-            className="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 h-12 px-8"
+            href="#work"
+            className="group inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.2em] font-semibold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.15)] active:scale-95 shrink-0"
           >
-            <span>Explore Services</span>
+            <span>EXPLORE OUR WORK</span>
+            <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* Bottom bar: Ambient status, studio location, and scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.7 }}
+        className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs font-editorial-sans text-[#858585]"
+      >
+        <div className="flex items-center gap-6">
+          <span className="uppercase tracking-[0.2em] text-[#858585]">
+            FOUNDER-LED STUDIO
+          </span>
+          <span className="hidden sm:inline-block w-1 h-1 rounded-full bg-white/20" />
+          <span className="uppercase tracking-[0.2em] text-[#858585]">
+            DIRECT ENGINEERING
+          </span>
         </div>
 
-        {/* Prominent Metric — Strictly 10+ Projects Done */}
-        <div className="mt-14 pt-8 border-t border-[#1c1f26]/60 w-full max-w-[480px]">
-          <div className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#0a0a0a]/60 border border-[#1c1f26]/80 backdrop-blur-sm">
-            <div className="flex items-baseline gap-1 font-mono">
-              <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                10+
-              </span>
-            </div>
-            <span className="font-mono text-[11px] font-bold text-[#ff6a00] uppercase tracking-[0.18em] mt-1">
-              Projects Done
-            </span>
-            <span className="text-xs text-[#9ca3af]/70 mt-1 font-sans">
-              Delivered across modern web platforms, dashboards & applications
-            </span>
-          </div>
-        </div>
-      </div>
+        <Link
+          href="#intro"
+          className="group inline-flex items-center gap-2 uppercase tracking-[0.2em] text-xs text-white/60 hover:text-white transition-colors"
+        >
+          <span>SCROLL DOWN</span>
+          <ArrowDown className="w-3.5 h-3.5 animate-bounce transition-transform group-hover:translate-y-1" />
+        </Link>
+      </motion.div>
     </section>
   );
 }

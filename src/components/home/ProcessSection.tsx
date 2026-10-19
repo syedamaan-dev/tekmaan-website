@@ -1,75 +1,146 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { siteConfig, ProcessStep } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 export function ProcessSection() {
-  const steps = [
-    {
-      number: "01",
-      title: "Discovery & Strategy",
-      desc: "We begin with a deep exploration into your product vision, target market, functional specifications, and business goals to map a razor-sharp technical trajectory.",
-    },
-    {
-      number: "02",
-      title: "Architecture & Wireframing",
-      desc: "Creating structural blueprints, database schemas, and intuitive interaction wireframes to validate user experience and technical feasibility before writing code.",
-    },
-    {
-      number: "03",
-      title: "Visual Design Creation",
-      desc: "Translating wireframes into distinctive, high-fidelity interfaces. Establishing typography scales, micro-interactions, responsive design systems, and brand elevation.",
-    },
-    {
-      number: "04",
-      title: "Engineering & Testing",
-      desc: "Building clean, production-grade Next.js and full-stack software with rigorous automated testing, Core Web Vitals optimization, and strict accessibility standards.",
-    },
-    {
-      number: "05",
-      title: "Deployment & Evolution",
-      desc: "Smooth launch onto resilient cloud infrastructure with continuous monitoring, zero downtime, and dedicated founder-level technical support.",
-    },
-  ];
+  const [activeStep, setActiveStep] = useState<number>(0);
 
   return (
-    <section id="process" className="py-24 md:py-36 relative border-t border-[#1c1f26]/60">
-      <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-        <div className="grid md:grid-cols-2 md:gap-12 items-start">
-          {/* Left Column: Sticky Title */}
-          <div className="md:sticky md:top-28 mb-12 md:mb-0">
-            <span className="text-[12px] text-[#ff6a00] font-mono font-medium tracking-[0.2em] uppercase block mb-3">
-              Our Process
+    <section
+      id="process"
+      className="relative w-full bg-[#090909] text-white pt-24 sm:pt-36 pb-24 sm:pb-36 px-6 sm:px-8 lg:px-12 border-t border-white/10 overflow-hidden"
+    >
+      {/* Background radial glow */}
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-[#4878E8]/10 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-white/10">
+          <div>
+            <span className="text-xs uppercase tracking-[0.28em] text-[#858585] font-editorial-sans block mb-4">
+              05 / CREATIVE &amp; TECHNICAL BLUEPRINT
             </span>
-            <h2 className="text-fluid-h1 font-bold text-white font-playfair max-w-[480px] leading-tight mb-6">
-              Planning your<br />
-              <span className="text-[#ff6a00]"> project journey.</span>
+            <h2 className="font-editorial-serif text-section-giant text-white">
+              THE 4-STEP
+              <br />
+              PROCESS.
             </h2>
-            <p className="text-fluid-body text-[#9ca3af] max-w-[420px] leading-relaxed">
-              Every phase is executed with direct developer access and transparent milestones. No agency bloat — just thoughtful design and clean, dependable engineering.
-            </p>
           </div>
 
-          {/* Right Column: Steps Cards */}
-          <div className="space-y-6">
-            {steps.map((step) => (
-              <div
+          <div className="max-w-md">
+            <p className="text-sm text-[#858585] leading-relaxed font-editorial-sans">
+              From strategic deconstruction to flawless production deployment. A battle-tested
+              roadmap engineered for absolute velocity, clarity, and zero surprise deliverables.
+            </p>
+          </div>
+        </div>
+
+        {/* Step Selector Horizontal Bar (Desktop) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-12">
+          {siteConfig.processSteps.map((step: ProcessStep, index: number) => {
+            const isActive = activeStep === index;
+            return (
+              <button
                 key={step.number}
-                className="rounded-2xl border border-[#1c1f26] bg-[#0a0a0a]/90 p-8 shadow-xl hover:border-[#ff6a00]/40 transition-all duration-300 relative group"
+                onClick={() => setActiveStep(index)}
+                className={cn(
+                  "text-left p-6 sm:p-8 border transition-all duration-300 relative group cursor-pointer",
+                  isActive
+                    ? "border-white bg-white/[0.04] shadow-[0_0_30px_rgba(255,255,255,0.05)]"
+                    : "border-white/10 hover:border-white/30 bg-transparent"
+                )}
               >
-                <div className="flex items-center justify-between gap-4 mb-4">
-                  <h3 className="text-xl font-bold text-white font-syne group-hover:text-[#ff6a00] transition-colors">
-                    {step.title}
-                  </h3>
-                  <span className="text-3xl font-bold text-[#ff6a00] font-syne opacity-90">
-                    {step.number}
+                {/* Active Indicator Top Line */}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeProcessLine"
+                    className="absolute -top-[1px] left-0 right-0 h-[2px] bg-gradient-to-r from-[#4878E8] via-[#7864C9] to-[#D64B89]"
+                  />
+                )}
+
+                <div className="flex items-center justify-between mb-4">
+                  <span
+                    className={cn(
+                      "font-mono text-sm tracking-wider",
+                      isActive ? "text-[#7864C9]" : "text-[#858585]"
+                    )}
+                  >
+                    STEP {step.number}
+                  </span>
+                  <span
+                    className={cn(
+                      "text-xs uppercase tracking-widest",
+                      isActive ? "text-white" : "text-[#858585] group-hover:text-white"
+                    )}
+                  >
+                    PHASE
                   </span>
                 </div>
-                <p className="text-sm text-[#9ca3af] leading-relaxed">
-                  {step.desc}
+
+                <h3 className="font-editorial-serif text-xl sm:text-2xl text-white mb-2">
+                  {step.title}
+                </h3>
+
+                <p className="text-xs text-[#858585] font-editorial-sans">
+                  {step.subtitle}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Step Detailed Showcase Panel */}
+        <div className="mt-8 border border-white/10 p-8 sm:p-14 bg-white/[0.015]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start"
+            >
+              {/* Left Column: Number & Description */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="flex items-center gap-4">
+                  <span className="text-xs uppercase tracking-[0.25em] text-[#7864C9] font-mono">
+                    STAGE {siteConfig.processSteps[activeStep].number} OF 04
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-white/20" />
+                  <span className="text-xs uppercase tracking-[0.2em] text-[#858585]">
+                    {siteConfig.processSteps[activeStep].subtitle}
+                  </span>
+                </div>
+
+                <h4 className="font-editorial-serif text-2xl sm:text-3xl lg:text-4xl text-white">
+                  {siteConfig.processSteps[activeStep].title}
+                </h4>
+
+                <p className="text-base sm:text-lg text-[#F8F8F6]/90 font-editorial-sans leading-relaxed">
+                  {siteConfig.processSteps[activeStep].description}
                 </p>
               </div>
-            ))}
-          </div>
+
+              {/* Right Column: Key Concrete Deliverables */}
+              <div className="lg:col-span-5 border-l border-white/10 lg:pl-10 space-y-4">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#858585] block font-semibold">
+                  CONCRETE STAGE DELIVERABLES
+                </span>
+                <ul className="space-y-3.5">
+                  {siteConfig.processSteps[activeStep].deliverables.map((item, dIdx) => (
+                    <li key={dIdx} className="flex items-start gap-3 text-sm text-[#858585]">
+                      <CheckCircle2 className="w-4 h-4 text-[#7864C9] shrink-0 mt-0.5" />
+                      <span className="text-[#F8F8F6]">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>

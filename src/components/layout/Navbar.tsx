@@ -2,155 +2,200 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeHash, setActiveHash] = useState("#home");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-
-      // Simple active section detection
-      const sections = ["contact", "team", "about", "services", "home"];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 200) {
-            setActiveHash(`#${section}`);
-            break;
-          }
-        }
-      }
+      setIsScrolled(window.scrollY > 30);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when fullscreen menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out flex justify-center w-full ${
-          isScrolled
-            ? "bg-[#000000]/90 backdrop-blur-md border-b border-[#1c1f26]/80 shadow-[0_4px_24px_rgba(0,0,0,0.7)]"
-            : "bg-[#000000]/60 backdrop-blur-sm border-b border-white/[0.06]"
-        }`}
-      >
-        <div className="w-full max-w-[1240px] px-6 md:px-12 h-16 md:h-[72px] flex items-center justify-between">
-          {/* TEKMAAN Wordmark */}
-          <Link
-            href="#home"
-            className="flex items-center gap-1.5 group focus:outline-none select-none"
-            aria-label="TEKMAAN Studio Home"
-          >
-            <span className="font-syne font-extrabold tracking-tight text-xl md:text-2xl text-white group-hover:text-white/90 transition-colors">
-              TEKMAAN
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#ff6a00] inline-block shadow-[0_0_8px_#ff6a00]" />
-          </Link>
+      {/* Top Scroll Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#4878E8] via-[#7864C9] to-[#D64B89] z-[100] origin-left"
+        style={{ scaleX }}
+      />
 
-          {/* Desktop Navigation Links */}
-          <nav
-            className="hidden md:flex items-center gap-8 lg:gap-10"
-            aria-label="Main Navigation"
-          >
-            {siteConfig.nav.map((item) => {
-              const isActive = activeHash === item.href;
-              return (
+      {/* Main Header Bar */}
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-400 ease-out",
+          isScrolled
+            ? "py-4 bg-[#090909]/85 backdrop-blur-md border-b border-white/[0.06]"
+            : "py-7 bg-transparent border-b border-transparent"
+        )}
+      >
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex items-center justify-between">
+            {/* Left: TEKMAAN Wordmark */}
+            <Link
+              href="/"
+              className="group flex items-baseline gap-2 focus:outline-none"
+              aria-label="TEKMAAN Home"
+            >
+              <span className="font-editorial-serif text-2xl sm:text-3xl text-white transition-opacity group-hover:opacity-90">
+                TEKMAAN
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#7864C9] inline-block mb-1" />
+            </Link>
+
+            {/* Centre: WORK / SERVICES / ABOUT / CONTACT */}
+            <nav className="hidden md:flex items-center gap-9" aria-label="Main Navigation">
+              {siteConfig.nav.map((item) => (
                 <Link
                   key={item.title}
                   href={item.href}
-                  className={`font-mono tracking-widest text-[11px] uppercase transition-all duration-200 relative py-1 ${
-                    isActive
-                      ? "text-[#ff6a00] font-bold"
-                      : "text-[#9ca3af]/80 hover:text-white font-medium"
-                  }`}
+                  className="text-xs uppercase tracking-[0.25em] text-[#858585] hover:text-white transition-colors duration-200 font-editorial-sans"
                 >
                   {item.title}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#ff6a00] rounded-full shadow-[0_0_6px_#ff6a00]" />
-                  )}
                 </Link>
-              );
-            })}
-          </nav>
+              ))}
+            </nav>
 
-          {/* Desktop Right CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="#contact"
-              className="inline-flex items-center justify-center gap-1.5 bg-[#ff6a00] hover:bg-[#e55f00] text-white font-mono text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-md transition-all duration-200 hover:-translate-y-0.5 shadow-[0_2px_12px_rgba(255,106,0,0.3)] active:translate-y-0"
-            >
-              <span>Get in Touch</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+            {/* Right: LET'S TALK pill button + Animated Menu Icon */}
+            <div className="flex items-center gap-3">
+              <Link
+                href="#contact"
+                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-white/20 text-xs uppercase tracking-[0.2em] font-editorial-sans text-white hover:border-white/60 hover:bg-white/[0.05] transition-all duration-300"
+              >
+                <span>LET'S TALK</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-white/70" />
+              </Link>
 
-          {/* Mobile Hamburger Button */}
-          <div className="flex md:hidden items-center">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:border-[#ff6a00]/50 transition-colors focus:outline-none"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5 text-[#ff6a00]" />
-              ) : (
-                <Menu className="w-5 h-5 text-white" />
-              )}
-            </button>
+              {/* Animated Menu Icon / Hamburger */}
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="p-2.5 rounded-full border border-white/10 hover:border-white/30 text-white focus:outline-none transition-colors"
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={menuOpen}
+              >
+                {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 top-16 z-40 bg-[#000000]/98 backdrop-blur-xl md:hidden flex flex-col p-6 border-t border-[#1c1f26]">
-          <nav className="flex flex-col gap-5 mt-4">
-            {siteConfig.nav.map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="font-syne text-2xl font-bold text-white hover:text-[#ff6a00] transition-colors py-2 border-b border-[#1c1f26]/50 flex items-center justify-between"
-              >
-                <span>{item.title}</span>
-                <span className="font-mono text-xs text-[#9ca3af]/40 uppercase">
-                  {item.href.replace("#", "// ")}
-                </span>
-              </Link>
-            ))}
-          </nav>
+      {/* Fullscreen Luxurious Menu Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-40 bg-[#090909] text-white flex flex-col justify-between p-8 sm:p-12 lg:p-20 overflow-y-auto"
+          >
+            {/* Header placeholder spacer */}
+            <div className="h-16" />
 
-          <div className="mt-8 pt-6 flex flex-col gap-4">
-            <Link
-              href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#ff6a00] text-white font-mono text-xs font-bold uppercase tracking-wider py-3.5 rounded-md shadow-lg"
-            >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-
-            <div className="text-center mt-4">
-              <span className="font-mono text-[11px] text-[#9ca3af]/60 uppercase tracking-widest block">
-                Direct Contact
+            {/* Giant Navigation Links */}
+            <div className="max-w-5xl mx-auto w-full my-auto py-8">
+              <span className="text-xs uppercase tracking-[0.3em] text-[#858585] block mb-8">
+                NAVIGATION — EST. 2026
               </span>
-              <a
-                href="mailto:tekmaan.connect@gmail.com"
-                className="font-mono text-xs text-[#eaeaea] hover:text-[#ff6a00] mt-1 block"
-              >
-                tekmaan.connect@gmail.com
-              </a>
+              <div className="flex flex-col gap-6 sm:gap-8">
+                {siteConfig.nav.map((item, idx) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 * idx, duration: 0.4 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="group flex items-baseline justify-between border-b border-white/10 pb-4 text-3xl sm:text-5xl lg:text-6xl font-editorial-serif text-white hover:text-[#7864C9] transition-colors"
+                    >
+                      <span className="group-hover:translate-x-3 transition-transform duration-300">
+                        {item.title}
+                      </span>
+                      <span className="text-sm font-sans tracking-widest text-[#858585] group-hover:text-white">
+                        0{idx + 1} ↗
+                      </span>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+
+            {/* Bottom Footer Info inside Overlay */}
+            <div className="max-w-5xl mx-auto w-full grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/10 text-xs tracking-wider text-[#858585]">
+              <div>
+                <span className="block uppercase text-white mb-1">STUDIO</span>
+                <p>Independent Freelance Studio</p>
+                <p>Direct Engineer Collaboration</p>
+              </div>
+              <div>
+                <span className="block uppercase text-white mb-1">DIRECT INQUIRIES</span>
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="hover:text-white transition-colors block"
+                >
+                  {siteConfig.contact.email}
+                </a>
+                <a
+                  href="https://wa.me/919063127547"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors block mt-1"
+                >
+                  WhatsApp: +91 9063127547 ↗
+                </a>
+              </div>
+              <div className="flex sm:justify-end items-center gap-6">
+                <a
+                  href={siteConfig.contact.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors uppercase"
+                >
+                  GITHUB ↗
+                </a>
+                <a
+                  href={siteConfig.contact.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors uppercase"
+                >
+                  LINKEDIN ↗
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

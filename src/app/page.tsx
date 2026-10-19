@@ -1,34 +1,50 @@
 import React from "react";
 import { Hero } from "@/components/home/Hero";
-import { ServiceTicker } from "@/components/home/ServiceTicker";
-import { AboutSection } from "@/components/home/AboutSection";
+import { IntroSection } from "@/components/home/IntroSection";
+import { SelectedWorkSection } from "@/components/home/SelectedWorkSection";
 import { ServicesSection } from "@/components/home/ServicesSection";
+import { AboutSection } from "@/components/home/AboutSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
+import { CapabilitiesSection } from "@/components/home/CapabilitiesSection";
+import { WhyUsSection } from "@/components/home/WhyUsSection";
+import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 import { TeamSection } from "@/components/home/TeamSection";
 import { ContactSection } from "@/components/home/ContactSection";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col w-full overflow-hidden">
-      {/* 01. Hero Section */}
+      {/* SECTION 01 — CINEMATIC HERO (#090909 Dark, Reference 2) */}
       <Hero />
 
-      {/* 02. Studio Values Marquee Ticker */}
-      <ServiceTicker />
+      {/* SECTION 02 — INTRODUCTION (#090909 to #F8F8F6 transition) */}
+      <IntroSection />
 
-      {/* 03. About Us Section */}
-      <AboutSection />
+      {/* SECTION 03 — SELECTED WORK (#F8F8F6 White Minimalist, Reference 1) */}
+      <SelectedWorkSection />
 
-      {/* 04. Services Section (6 Official Services) */}
+      {/* SECTION 04 — SERVICES (#090909 Dark Editorial Rows) */}
       <ServicesSection />
 
-      {/* 05. Process Section (5 Step Timeline) */}
+      {/* SECTION 05 — ABOUT TEKMAAN (#F8F8F6 White Editorial) */}
+      <AboutSection />
+
+      {/* SECTION 06 — CREATIVE PROCESS (#090909 Dark 4-Step Timeline) */}
       <ProcessSection />
 
-      {/* 06. Team Section ("People behind the pixels" with 3 Real Photos) */}
+      {/* SECTION 07 — TECHNOLOGY & CAPABILITIES (#F8F8F6 White Minimal Matrix) */}
+      <CapabilitiesSection />
+
+      {/* SECTION 08 — WHY WORK WITH US (#090909 Editorial B&W Composition) */}
+      <WhyUsSection />
+
+      {/* SECTION 09 — GIANT CALL TO ACTION (#090909 Near-black with gradient on EXTRAORDINARY) */}
+      <GiantCtaSection />
+
+      {/* SECTION 10 — THE PEOPLE BEHIND TEKMAAN */}
       <TeamSection />
 
-      {/* 07. Contact Section (Closing CTA & Working SMTP Form) */}
+      {/* SECTION 11 — CONTACT (#F8F8F6 Clean Light Form & Direct Reach) */}
       <ContactSection />
     </div>
   );

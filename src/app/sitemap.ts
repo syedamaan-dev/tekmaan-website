@@ -8,6 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/about",
     "/services",
+    "/work",
+    "/process",
     "/contact",
     "/privacy",
     "/terms",
@@ -18,5 +20,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1.0 : 0.8,
   }));
 
-  return routes;
+  const projectRoutes = siteConfig.projects.map((project) => ({
+    url: `${baseUrl}/work/${project.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.9,
+  }));
+
+  return [...routes, ...projectRoutes];
 }

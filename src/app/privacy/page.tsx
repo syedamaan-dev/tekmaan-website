@@ -6,62 +6,75 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — TEKMAAN",
-  description: "Privacy policy and client data handling commitments for TEKMAAN Studio.",
+  description: "Privacy policy and data stewardship principles of TEKMAAN Studio.",
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="flex flex-col w-full bg-[#000000] text-[#eaeaea] min-h-screen">
-      <section className="py-24 px-6 md:px-12">
+    <div className="flex flex-col w-full bg-[#090909] text-white min-h-screen">
+      <section className="pt-36 pb-24 px-6 sm:px-8 lg:px-12">
         <div className="max-w-4xl mx-auto">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#9ca3af] hover:text-[#ff6a00] transition-colors mb-8 group font-mono"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#858585] hover:text-white transition-colors mb-8 group font-editorial-sans"
           >
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span>Back to Home</span>
+            <span>BACK TO HOME</span>
           </Link>
 
-          <h1 className="font-syne text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h1 className="font-editorial-serif text-4xl sm:text-5xl text-white mb-4">
             Privacy Policy.
           </h1>
 
-          <p className="text-xs uppercase tracking-[0.2em] text-[#ff6a00] mb-12 font-mono">
-            Last Revised: 2026 // TEKMAAN Studio
+          <p className="text-xs uppercase tracking-[0.2em] text-[#858585] mb-12 font-mono">
+            LAST REVISED: OCTOBER 2026 // TEKMAAN STUDIO
           </p>
 
-          <div className="space-y-10 text-sm sm:text-base text-[#9ca3af] leading-relaxed border-t border-[#1c1f26] pt-10">
+          <div className="space-y-10 text-sm sm:text-base text-[#858585] font-editorial-sans leading-relaxed border-t border-white/10 pt-10">
             <section className="space-y-3">
-              <h2 className="font-syne text-xl font-bold text-white">
-                01. Information Collection
+              <h2 className="font-editorial-sans text-xl font-bold text-white">
+                01. Core Philosophy
               </h2>
               <p>
-                We only collect necessary project details, contact email, and operational context submitted voluntarily via our contact form or direct communication channels. We never sell, rent, or monetize your contact information.
+                TEKMAAN operates strictly as an independent digital engineering studio. We do not sell, rent, monetize, or broker personal information. Any information you share through our contact channels is used solely to evaluate, scope, and execute our client project engagements.
               </p>
             </section>
 
             <section className="space-y-3">
-              <h2 className="font-syne text-xl font-bold text-white">
-                02. Data Security &amp; Confidentiality
+              <h2 className="font-editorial-sans text-xl font-bold text-white">
+                02. Information Collected
               </h2>
               <p>
-                All communications, architectural discussions, and proprietary code repositories shared with TEKMAAN are held in strict commercial confidence under standard non-disclosure terms.
+                When you initiate an inquiry via our contact form or email, we collect the details you voluntarily provide:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-[#F8F8F6]">
+                <li>Full name and work email address</li>
+                <li>Company or organization name (if provided)</li>
+                <li>Project scope, budget range, and technical requirements</li>
+              </ul>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="font-editorial-sans text-xl font-bold text-white">
+                03. Data Transmission &amp; Resend Gateway
+              </h2>
+              <p>
+                Project inquiries submitted through our web forms are transmitted securely via TLS encryption to our private studio inbox using Resend. We do not retain marketing tracking cookies or share submissions with third-party advertising networks.
               </p>
             </section>
 
             <section className="space-y-3">
-              <h2 className="font-syne text-xl font-bold text-white">
-                03. Contact Regarding Privacy
+              <h2 className="font-editorial-sans text-xl font-bold text-white">
+                04. Contact Regarding Data
               </h2>
               <p>
-                For questions regarding data privacy or record deletion, contact us directly at{" "}
+                To request deletion or verification of any communications, contact our studio directly at{" "}
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="text-[#ff6a00] hover:underline"
+                  className="text-white underline hover:text-[#7864C9]"
                 >
                   {siteConfig.contact.email}
-                </a>
-                .
+                </a>.
               </p>
             </section>
           </div>
