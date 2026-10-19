@@ -180,7 +180,7 @@ export const siteConfig = {
         "Zero-Downtime Dependency Updates",
         "Direct Engineering Support",
       ],
-      techStack: ["Lighthouse", "Vercel Analytics", "Sentry", "Cloudflare", "CI/CD"],
+      techStack: ["Core Web Vitals", "Vercel Analytics", "Sentry", "Cloudflare", "CI/CD"],
     },
   ] as ServiceItem[],
 
