@@ -11,50 +11,50 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[#090909] text-white pt-24 pb-12 px-6 sm:px-8 lg:px-12 border-t border-white/10 overflow-hidden">
+    <footer className="relative w-full bg-[#090909] text-white pt-16 sm:pt-20 pb-10 px-6 sm:px-8 lg:px-12 border-t border-white/10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Top Grid: Columns for Navigation, Direct Reach, Studio Info */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 pb-20 border-b border-white/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-14 border-b border-white/10">
           {/* Studio positioning */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-3">
             <div className="flex items-baseline gap-2">
               <span className="font-editorial-serif text-3xl font-extrabold tracking-tight text-white">
                 TEKMAAN
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#7864C9]" />
             </div>
-            <p className="text-sm text-[#858585] font-editorial-sans leading-relaxed max-w-sm">
-              Independent digital technology studio crafting high-performance websites, bespoke portals,
+            <p className="text-xs sm:text-sm text-[#858585] font-editorial-sans leading-relaxed max-w-sm">
+              Independent digital technology studio crafting high-performance websites, bespoke platforms,
               and intelligent software interfaces.
             </p>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#858585] pt-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#858585] pt-1 font-mono">
               EST. {siteConfig.identity.established} — {siteConfig.identity.location}
             </p>
           </div>
 
           {/* Navigation Links */}
-          <div className="lg:col-span-3 space-y-4">
+          <div className="lg:col-span-3 space-y-3">
             <span className="text-xs uppercase tracking-[0.25em] text-white block font-semibold">
               NAVIGATION
             </span>
-            <ul className="space-y-2.5 text-xs uppercase tracking-[0.2em] font-editorial-sans text-[#858585]">
+            <ul className="space-y-2 text-xs uppercase tracking-[0.2em] font-editorial-sans text-[#858585]">
               <li>
-                <Link href="#work" className="hover:text-white transition-colors">
+                <Link href="/work" className="hover:text-white transition-colors">
                   01 // WORK
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="hover:text-white transition-colors">
+                <Link href="/services" className="hover:text-white transition-colors">
                   02 // SERVICES
                 </Link>
               </li>
               <li>
-                <Link href="#about" className="hover:text-white transition-colors">
+                <Link href="/about" className="hover:text-white transition-colors">
                   03 // ABOUT
                 </Link>
               </li>
               <li>
-                <Link href="#process" className="hover:text-white transition-colors">
+                <Link href="/process" className="hover:text-white transition-colors">
                   04 // PROCESS
                 </Link>
               </li>
@@ -67,13 +67,13 @@ export function Footer() {
           </div>
 
           {/* Connect & Direct Reach */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-4 space-y-3">
             <span className="text-xs uppercase tracking-[0.25em] text-white block font-semibold">
               DIRECT CHANNELS
             </span>
-            <ul className="space-y-3 text-xs font-editorial-sans text-[#858585]">
+            <ul className="space-y-2.5 text-xs font-editorial-sans text-[#858585]">
               <li>
-                <span className="block text-[11px] uppercase tracking-wider text-[#858585]">EMAIL</span>
+                <span className="block text-[10px] uppercase tracking-wider text-[#858585]">EMAIL</span>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
                   className="text-white hover:text-[#7864C9] transition-colors"
@@ -82,7 +82,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <span className="block text-[11px] uppercase tracking-wider text-[#858585]">PHONE &amp; WHATSAPP</span>
+                <span className="block text-[10px] uppercase tracking-wider text-[#858585]">PHONE &amp; WHATSAPP</span>
                 <a
                   href="https://wa.me/919063127547"
                   target="_blank"
@@ -90,12 +90,14 @@ export function Footer() {
                   className="text-white hover:text-[#7864C9] transition-colors flex items-center gap-2"
                 >
                   <span>+91 9063127547</span>
-                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">WHATSAPP ↗</span>
+                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.2 rounded border border-emerald-500/20">
+                    WHATSAPP ↗
+                  </span>
                 </a>
               </li>
               <li>
-                <span className="block text-[11px] uppercase tracking-wider text-[#858585]">NETWORKS</span>
-                <div className="flex items-center gap-5 pt-1 uppercase tracking-wider">
+                <span className="block text-[10px] uppercase tracking-wider text-[#858585]">NETWORKS</span>
+                <div className="flex items-center gap-5 pt-0.5 uppercase tracking-wider">
                   <a
                     href={siteConfig.contact.githubUrl}
                     target="_blank"
@@ -118,15 +120,15 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Massive Editorial TEKMAAN Wordmark */}
-        <div className="py-12 sm:py-20 select-none overflow-hidden">
-          <h2 className="font-editorial-serif text-[14vw] leading-[1] tracking-normal text-white/10 hover:text-white/20 transition-colors duration-700 text-center uppercase whitespace-nowrap">
+        {/* Editorial TEKMAAN Wordmark */}
+        <div className="py-8 sm:py-12 select-none overflow-hidden">
+          <h2 className="font-editorial-serif text-[13vw] leading-[1] tracking-normal text-white/10 hover:text-white/20 transition-colors duration-700 text-center uppercase whitespace-nowrap">
             TEKMAAN
           </h2>
         </div>
 
         {/* Bottom Bar: Copyright & Back-to-Top Control */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#858585] font-editorial-sans">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#858585] font-editorial-sans">
           <p>© 2026 TEKMAAN STUDIO. ALL RIGHTS RESERVED.</p>
 
           <div className="flex items-center gap-6">
@@ -144,7 +146,7 @@ export function Footer() {
               aria-label="Back to top"
             >
               <span className="uppercase tracking-[0.2em]">BACK TO TOP</span>
-              <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
+              <div className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
                 <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
               </div>
             </button>

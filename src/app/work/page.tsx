@@ -36,7 +36,7 @@ export default function WorkPage() {
       </section>
 
       {/* Selected Work Grid (Reference 1 style) */}
-      <SelectedWorkSection />
+      <SelectedWorkSection isHomepage={false} />
 
       {/* Bottom CTA */}
       <GiantCtaSection />

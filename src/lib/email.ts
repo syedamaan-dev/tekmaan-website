@@ -248,11 +248,11 @@ export async function sendEnquiryEmail(data: EnquiryPayload): Promise<EmailSendR
       messageId: info.messageId,
       response: info.response,
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("[TEKMAAN Nodemailer Error]:", err);
     return {
       success: false,
-      error: err.message || "Failed to dispatch email via SMTP.",
+      error: err instanceof Error ? err.message : "Failed to dispatch email via SMTP.",
     };
   }
 }

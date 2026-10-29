@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Send,
   Loader2,
   CheckCircle2,
   AlertCircle,
-  Sparkles,
+
   ShieldCheck,
   RotateCcw,
 } from "lucide-react";
@@ -21,7 +21,7 @@ function ContactFormInner() {
     fullName: "",
     email: "",
     company: "",
-    service: "",
+    service: preselectedService || "",
     budget: "",
     message: "",
     honeypot: "", // hidden spam trap
@@ -32,15 +32,7 @@ function ContactFormInner() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
-  useEffect(() => {
-    if (preselectedService) {
-      // Find matching service or keep as-is
-      setFormData((prev) => ({
-        ...prev,
-        service: preselectedService,
-      }));
-    }
-  }, [preselectedService]);
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -89,7 +81,7 @@ function ContactFormInner() {
 
       setSubmitStatus("success");
       setStatusMessage(result.message || "Your project inquiry has been received!");
-    } catch (err: any) {
+    } catch {
       setSubmitStatus("error");
       setStatusMessage("Network error encountered. Please check your connection or email us directly.");
     } finally {
@@ -102,7 +94,7 @@ function ContactFormInner() {
       fullName: "",
       email: "",
       company: "",
-      service: "",
+      service: preselectedService || "",
       budget: "",
       message: "",
       honeypot: "",

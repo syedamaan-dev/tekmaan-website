@@ -41,7 +41,7 @@ export function GiantCtaSection() {
           style={{ y: yTransform }}
           className="font-editorial-serif text-hero-giant max-w-6xl select-none"
         >
-          <span>LET'S CREATE</span>
+          <span>LET&apos;S CREATE</span>
           <br />
           <span>SOMETHING</span>
           <br />

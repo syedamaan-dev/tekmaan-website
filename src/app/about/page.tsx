@@ -1,8 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+
+
 import { siteConfig } from "@/config/site";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 
@@ -57,7 +57,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   We build for production resilience. Whether deploying high-throughput event portals
-                  like SR University's PRAGATHI Expo or architecting AI reliability testbeds like AEGIS-X,
+                  like SR University&apos;s PRAGATHI Expo or architecting AI reliability testbeds like AEGIS-X,
                   we write code that withstands real-world stress.
                 </p>
               </div>

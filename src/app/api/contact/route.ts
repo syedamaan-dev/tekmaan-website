@@ -146,7 +146,7 @@ export async function POST(req: NextRequest) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[TEKMAAN Contact API Unexpected Error]:", error);
     return NextResponse.json(
       {

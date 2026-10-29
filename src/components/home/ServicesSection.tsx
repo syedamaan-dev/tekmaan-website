@@ -1,150 +1,188 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { siteConfig, ServiceItem } from "@/config/site";
-import { cn } from "@/lib/utils";
+
+interface Offering {
+  number: string;
+  category: string;
+  title: string;
+  description: string;
+  deliverables: string[];
+  techStack: string[];
+  link: string;
+}
+
+const offerings: Offering[] = [
+  {
+    number: "01",
+    category: "DIGITAL FLAGSHIPS",
+    title: "Websites & E-commerce",
+    description:
+      "High-impact editorial websites, brand flagships, and e-commerce platforms engineered with bespoke typography, fluid motion, and sub-second load times.",
+    deliverables: [
+      "Custom editorial design & typography",
+      "Next.js App Router & fluid motion",
+      "Core Web Vitals 95+ speed targets",
+      "Technical SEO & schema architecture",
+    ],
+    techStack: ["Next.js", "React 19", "Tailwind CSS", "Motion"],
+    link: "/services#website-design",
+  },
+  {
+    number: "02",
+    category: "SOFTWARE ENGINEERING",
+    title: "Business Platforms & Custom Software",
+    description:
+      "Mission-critical web applications, operational portals, high-throughput jury evaluation consoles, and scalable backend infrastructure built for daily reliability.",
+    deliverables: [
+      "Type-safe full-stack architecture",
+      "Custom admin & telemetry consoles",
+      "Role-based access & secure sessions",
+      "PostgreSQL & Supabase data layers",
+    ],
+    techStack: ["TypeScript", "Next.js", "PostgreSQL", "Supabase", "FastAPI"],
+    link: "/services#fullstack-dev",
+  },
+  {
+    number: "03",
+    category: "APPLIED INTELLIGENCE",
+    title: "AI & Automation",
+    description:
+      "Practical AI integrations, production LLM pipelines, model reliability wrappers, drift diagnostics, and event-driven automation for real workflows.",
+    deliverables: [
+      "Model reliability & telemetry wrappers",
+      "Structured JSON & document pipelines",
+      "Production LLM API integrations",
+      "Automated event-driven webhooks",
+    ],
+    techStack: ["Python", "FastAPI", "LLM APIs", "JSON Validation"],
+    link: "/services#ai-automation",
+  },
+];
 
 export function ServicesSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
     <section
       id="services"
-      className="relative w-full bg-[#090909] text-white pt-24 sm:pt-36 pb-24 sm:pb-36 px-6 sm:px-8 lg:px-12 overflow-hidden border-t border-white/10"
+      className="relative w-full bg-[#090909] text-white pt-16 sm:pt-24 pb-16 sm:pb-24 px-6 sm:px-8 lg:px-12 overflow-hidden border-t border-white/10"
     >
-      {/* Ambient background light */}
-      <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-[#7864C9]/10 rounded-full blur-[140px] pointer-events-none" />
+      {/* Ambient background glow */}
+      <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-[#7864C9]/10 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-12 border-b border-white/10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
           <div>
-            <span className="text-xs uppercase tracking-[0.28em] text-[#858585] font-editorial-sans block mb-4">
-              03 / CAPABILITIES &amp; SPECIALISATIONS
+            <span className="text-xs uppercase tracking-[0.28em] text-[#858585] font-editorial-sans block mb-3">
+              02 // THREE CORE DISCIPLINES
             </span>
             <h2 className="font-editorial-serif text-section-giant text-white">
               WHAT WE
               <br />
-              DO BEST.
+              <span className="gradient-accent">BUILD.</span>
             </h2>
           </div>
 
-          <div className="max-w-md">
+          <div className="flex flex-col md:items-end gap-3 max-w-md">
             <p className="text-sm text-[#858585] leading-relaxed font-editorial-sans">
-              We bridge aesthetic elegance and rock-solid software engineering. Every engagement
-              receives direct architectural leadership and end-to-end execution.
+              Consolidated into three focused offerings. Direct senior engineering and design
+              partnership without agency overhead.
             </p>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] font-semibold text-white hover:text-[#7864C9] transition-colors"
+            >
+              <span>EXPLORE ALL 6 SERVICES &amp; SPECS</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
 
-        {/* Six Animated Service Rows */}
-        <div className="mt-8 flex flex-col divide-y divide-white/10 border-b border-white/10">
-          {siteConfig.services.map((service: ServiceItem, index: number) => {
-            const isHovered = hoveredIndex === index;
-
-            return (
-              <motion.div
-                key={service.id}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="group relative py-10 sm:py-14 transition-colors duration-300"
-              >
-                {/* Background hover light highlight */}
-                <div
-                  className={cn(
-                    "absolute inset-0 bg-white/[0.015] pointer-events-none transition-opacity duration-300",
-                    isHovered ? "opacity-100" : "opacity-0"
-                  )}
-                />
-
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start sm:items-center">
-                  {/* Service Number & Category */}
-                  <div className="lg:col-span-2 flex items-baseline gap-4">
-                    <span className="text-sm font-mono text-[#858585] group-hover:text-white transition-colors">
-                      {service.number}
-                    </span>
-                    <span className="text-xs uppercase tracking-[0.2em] text-[#858585] group-hover:text-[#7864C9] transition-colors">
-                      {service.category}
-                    </span>
-                  </div>
-
-                  {/* Giant Title */}
-                  <div className="lg:col-span-5">
-                    <h3 className="font-editorial-serif text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-white transition-all duration-300">
-                      {service.title}
-                    </h3>
-                  </div>
-
-                  {/* Short description & Key Deliverables */}
-                  <div className="lg:col-span-4 space-y-3">
-                    <p className="text-sm text-[#858585] group-hover:text-[#F8F8F6] leading-relaxed transition-colors duration-300 font-editorial-sans">
-                      {service.shortDesc}
-                    </p>
-
-                    {/* Tech Pills */}
-                    <div className="flex flex-wrap gap-2 pt-1">
-                      {service.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full border border-white/10 text-[#858585] group-hover:border-white/20 group-hover:text-white transition-colors"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right Arrow Button */}
-                  <div className="lg:col-span-1 flex justify-start lg:justify-end">
-                    <Link
-                      href="#contact"
-                      className="w-12 h-12 rounded-full border border-white/15 flex items-center justify-center text-white/70 group-hover:border-white group-hover:text-white group-hover:bg-white/[0.08] transition-all duration-300"
-                      aria-label={`Inquire about ${service.title}`}
-                    >
-                      <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-                  </div>
+        {/* 3 Consolidated Offerings Grid */}
+        <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {offerings.map((offering, index) => (
+            <motion.div
+              key={offering.title}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group border border-white/10 p-6 sm:p-8 bg-white/[0.015] hover:border-[#7864C9]/60 hover:bg-white/[0.03] transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                {/* Number & Category */}
+                <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/10">
+                  <span className="font-mono text-sm font-bold text-[#7864C9]">
+                    {offering.number}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-[#858585]">
+                    {offering.category}
+                  </span>
                 </div>
 
-                {/* Expanded deliverables on hover */}
-                <AnimatePresence>
-                  {isHovered && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="relative z-10 pt-6 mt-6 border-t border-white/5 overflow-hidden"
+                {/* Title */}
+                <h3 className="font-editorial-serif text-2xl sm:text-3xl text-white group-hover:text-white mb-3">
+                  {offering.title}
+                </h3>
+
+                {/* Short Description */}
+                <p className="text-xs sm:text-sm text-[#858585] leading-relaxed font-editorial-sans mb-6">
+                  {offering.description}
+                </p>
+
+                {/* Key Deliverables */}
+                <div className="space-y-2.5 pt-4 border-t border-white/5 mb-6">
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-white/50 block font-semibold mb-2">
+                    CORE DELIVERABLES
+                  </span>
+                  {offering.deliverables.map((item, dIdx) => (
+                    <div key={dIdx} className="flex items-start gap-2.5 text-xs text-[#858585]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#7864C9] shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom: Tech Stack & Link */}
+              <div className="pt-5 border-t border-white/10 flex flex-col gap-4">
+                <div className="flex flex-wrap gap-1.5">
+                  {offering.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[9px] uppercase tracking-wider px-2 py-0.5 border border-white/10 text-[#858585]"
                     >
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-[#858585]">
-                        {service.deliverables.map((deliv, dIdx) => (
-                          <div key={dIdx} className="flex items-center gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#7864C9] shrink-0" />
-                            <span>{deliv}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <Link
+                  href={offering.link}
+                  className="inline-flex items-center justify-between w-full pt-2 text-xs uppercase tracking-[0.2em] font-semibold text-white group-hover:text-[#4878E8] transition-colors"
+                >
+                  <span>VIEW SERVICE DETAILS</span>
+                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </Link>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Bottom studio CTA */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 text-xs font-editorial-sans text-[#858585]">
+        {/* Bottom Bar linking to expanded services */}
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-editorial-sans text-[#858585]">
           <span className="uppercase tracking-[0.2em]">
-            HAVE A BESPOKE ARCHITECTURAL OR SOFTWARE REQUIREMENT?
+            FULL TECHNICAL MATRIX, SLA OPTIONS &amp; DETAILED BREAKDOWNS AVAILABLE
           </span>
+
           <Link
-            href="#contact"
-            className="inline-flex items-center gap-2 text-white hover:text-[#7864C9] transition-colors uppercase tracking-[0.2em] font-semibold"
+            href="/services"
+            className="inline-flex items-center gap-2 text-white hover:text-[#7864C9] uppercase tracking-[0.2em] font-semibold transition-colors"
           >
-            <span>START A CONVERSATION ↗</span>
+            <span>BROWSE COMPLETE SERVICES &amp; SPECS ↗</span>
           </Link>
         </div>
       </div>

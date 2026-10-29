@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { siteConfig } from "@/config/site";
+
 
 export const metadata: Metadata = {
   title: "Terms of Service — TEKMAAN",

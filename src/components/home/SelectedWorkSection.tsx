@@ -16,155 +16,188 @@ const filterCategories = [
   { label: "DASHBOARDS", value: "dashboards" },
 ];
 
-export function SelectedWorkSection() {
+// Top 3 genuine projects specifically selected for the compact homepage
+const HOMEPAGE_PROJECT_SLUGS = ["pragathi-expo", "aegis-x", "atelier-monochrome"];
+
+interface SelectedWorkSectionProps {
+  isHomepage?: boolean;
+}
+
+export function SelectedWorkSection({ isHomepage = true }: SelectedWorkSectionProps) {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const filteredProjects = siteConfig.projects.filter((project) => {
-    if (activeFilter === "all") return true;
-    return project.categoryFilter === activeFilter;
-  });
+  const homepageProjects = HOMEPAGE_PROJECT_SLUGS.map((slug) =>
+    siteConfig.projects.find((p) => p.slug === slug)
+  ).filter((p): p is ProjectItem => Boolean(p));
+
+  const filteredProjects = isHomepage
+    ? homepageProjects
+    : siteConfig.projects.filter((project) => {
+        if (activeFilter === "all") return true;
+        return project.categoryFilter === activeFilter;
+      });
 
   return (
     <section
       id="work"
-      className="relative w-full bg-[#F8F8F6] text-[#090909] pt-20 sm:pt-32 pb-24 sm:pb-36 px-6 sm:px-8 lg:px-12 border-t border-black/10"
+      className="relative w-full bg-[#090909] text-white pt-16 sm:pt-24 pb-16 sm:pb-24 px-6 sm:px-8 lg:px-12 border-t border-white/10 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header (Reference 1 style) */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-10 border-b border-black/10">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[600px] h-[400px] bg-[#4878E8]/8 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
           <div>
-            <span className="text-xs uppercase tracking-[0.28em] text-[#858585] font-editorial-sans block mb-4">
-              02 / SELECTED WORK
+            <span className="text-xs uppercase tracking-[0.28em] text-[#858585] font-editorial-sans block mb-3">
+              01 // SELECTED WORK
             </span>
-            <h2 className="font-editorial-serif text-section-giant text-[#090909]">
-              Bold Ideas,
+            <h2 className="font-editorial-serif text-section-giant text-white">
+              ENGINEERED TO
               <br />
-              Stunning Results.
+              <span className="gradient-accent">PERFORM.</span>
             </h2>
           </div>
 
-          <p className="max-w-md text-sm text-[#858585] leading-relaxed font-editorial-sans">
-            A curated portfolio spanning verified client engagements, AI reliability platforms,
-            and digital exhibition frameworks. Meticulously built from architecture to deployment.
-          </p>
+          <div className="flex flex-col md:items-end gap-3 max-w-md">
+            <p className="text-sm text-[#858585] leading-relaxed font-editorial-sans">
+              Verified client deployments, deep engineering platforms, and studio design frameworks.
+              Built from architecture to production.
+            </p>
+            <Link
+              href="/work"
+              className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.2em] font-semibold text-white hover:text-[#7864C9] transition-colors"
+            >
+              <span>VIEW ALL WORK (6 PROJECTS)</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
         </div>
 
-        {/* Filter Navigation Bar (Reference 1 style) */}
-        <div className="flex items-center gap-2 sm:gap-6 overflow-x-auto py-8 border-b border-black/10 scrollbar-none">
-          {filterCategories.map((cat) => {
-            const isActive = activeFilter === cat.value;
-            return (
-              <button
-                key={cat.value}
-                onClick={() => setActiveFilter(cat.value)}
-                className={cn(
-                  "relative px-4 py-2 text-xs uppercase tracking-[0.2em] font-editorial-sans font-medium transition-colors shrink-0",
-                  isActive
-                    ? "text-[#090909] font-bold"
-                    : "text-[#858585] hover:text-[#090909]"
-                )}
-              >
-                <span>{cat.label}</span>
-                {isActive && (
-                  <motion.div
-                    layoutId="workFilterUnderline"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#090909]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
+        {/* Filter Navigation Bar (Shown on Full Archive /work page) */}
+        {!isHomepage && (
+          <div className="flex items-center gap-2 sm:gap-6 overflow-x-auto py-6 border-b border-white/10 scrollbar-none">
+            {filterCategories.map((cat) => {
+              const isActive = activeFilter === cat.value;
+              return (
+                <button
+                  key={cat.value}
+                  onClick={() => setActiveFilter(cat.value)}
+                  className={cn(
+                    "relative px-4 py-2 text-xs uppercase tracking-[0.2em] font-editorial-sans font-medium transition-colors shrink-0",
+                    isActive ? "text-white font-bold" : "text-[#858585] hover:text-white"
+                  )}
+                >
+                  <span>{cat.label}</span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="workFilterUnderline"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#7864C9]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
-        {/* Large Two-Column Portfolio Gallery (Reference 1 layout) */}
+        {/* Projects Grid: 3-column compact layout on homepage, 2-column on full archive */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16 sm:gap-y-24 pt-12 sm:pt-16"
+          className={cn(
+            "pt-10 sm:pt-12",
+            isHomepage
+              ? "grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"
+              : "grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14"
+          )}
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project: ProjectItem, index) => (
+            {filteredProjects.map((project: ProjectItem, index: number) => (
               <motion.article
                 key={project.slug}
                 layout
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="group flex flex-col"
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="group flex flex-col justify-between border border-white/10 p-5 sm:p-6 bg-white/[0.015] hover:border-[#7864C9]/60 hover:bg-white/[0.03] transition-all duration-300"
               >
-                {/* Large Visual Thumbnail with Zoom on Hover */}
-                <Link
-                  href={`/work/${project.slug}`}
-                  className="editorial-image-container w-full aspect-[16/10] bg-[#EAEAE8] rounded-none border border-black/10 overflow-hidden relative block shadow-sm"
-                  aria-label={`View ${project.title} Case Study`}
-                >
-                  <Image
-                    src={project.heroImage}
-                    alt={project.title}
-                    fill
-                    className="object-cover object-top filter grayscale contrast-110 group-hover:scale-105 group-hover:filter-none transition-all duration-700 ease-out"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-
-                  {/* Corner Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span
-                      className={cn(
-                        "inline-block px-3 py-1 text-[10px] uppercase tracking-[0.2em] font-semibold backdrop-blur-md border",
-                        project.isClientProject
-                          ? "bg-white/90 text-[#090909] border-black/15 shadow-sm"
-                          : "bg-[#090909]/80 text-white border-white/20"
-                      )}
-                    >
-                      {project.badge}
-                    </span>
-                  </div>
-                </Link>
-
-                {/* Project Details Below Thumbnail */}
-                <div className="pt-6 flex items-start justify-between gap-4">
-                  <div className="space-y-2 max-w-lg">
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] uppercase tracking-[0.25em] text-[#858585] font-editorial-sans">
-                        {project.categoryLabel}
-                      </span>
-                      <span className="w-1 h-1 rounded-full bg-black/20" />
-                      <span className="text-[11px] text-[#858585]">
-                        {project.clientOrContext}
-                      </span>
-                    </div>
-
-                    <Link href={`/work/${project.slug}`} className="block group-hover:text-[#4878E8] transition-colors">
-                      <h3 className="font-editorial-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#090909] group-hover:text-[#4878E8] transition-colors">
-                        {project.title}
-                      </h3>
-                    </Link>
-
-                    <p className="text-sm text-[#858585] leading-relaxed font-editorial-sans line-clamp-2">
-                      {project.tagline}
-                    </p>
-
-                    {/* Tech Tags */}
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.technologies.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-[10px] uppercase tracking-wider px-2.5 py-0.5 border border-black/10 bg-black/[0.02] text-[#242424]"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Subtle Arrow Icon */}
+                <div>
+                  {/* Visual Thumbnail */}
                   <Link
                     href={`/work/${project.slug}`}
-                    className="w-11 h-11 rounded-full border border-black/15 flex items-center justify-center text-[#090909] group-hover:bg-[#090909] group-hover:text-white transition-all duration-300 shrink-0 mt-1"
-                    aria-label={`Open ${project.title}`}
+                    className="editorial-image-container w-full aspect-[16/10] bg-[#141414] border border-white/10 overflow-hidden relative block mb-5"
+                    aria-label={`View ${project.title} Case Study`}
                   >
-                    <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <Image
+                      src={project.heroImage}
+                      alt={project.title}
+                      fill
+                      className="object-cover object-top filter grayscale contrast-110 group-hover:scale-105 group-hover:filter-none transition-all duration-700 ease-out"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+
+                    {/* Corner Project Type Badge */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <span
+                        className={cn(
+                          "inline-block px-2.5 py-1 text-[9px] uppercase tracking-[0.2em] font-semibold backdrop-blur-md border",
+                          project.isClientProject
+                            ? "bg-white/95 text-[#090909] border-white/40 shadow-sm"
+                            : project.badge === "Engineering Platform"
+                            ? "bg-[#4878E8]/90 text-white border-[#4878E8]"
+                            : "bg-[#090909]/90 text-[#F8F8F6] border-white/20"
+                        )}
+                      >
+                        {project.badge}
+                      </span>
+                    </div>
+                  </Link>
+
+                  {/* Context and Category */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.22em] text-[#7864C9] font-editorial-sans font-medium">
+                      {project.categoryLabel}
+                    </span>
+                    <span className="w-1 h-1 rounded-full bg-white/20" />
+                    <span className="text-[10px] text-[#858585] truncate">
+                      {project.clientOrContext}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <Link href={`/work/${project.slug}`} className="block">
+                    <h3 className="font-editorial-serif text-xl sm:text-2xl text-white group-hover:text-[#4878E8] transition-colors mb-2">
+                      {project.title}
+                    </h3>
+                  </Link>
+
+                  {/* Concise Description */}
+                  <p className="text-xs sm:text-sm text-[#858585] leading-relaxed font-editorial-sans line-clamp-3 mb-4">
+                    {project.tagline}
+                  </p>
+                </div>
+
+                {/* Footer with Tech & Action Button */}
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.technologies.slice(0, 3).map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[9px] uppercase tracking-wider px-2 py-0.5 border border-white/10 bg-white/[0.02] text-[#858585]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/work/${project.slug}`}
+                    className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/70 group-hover:bg-white group-hover:text-[#090909] group-hover:border-white transition-all duration-300 shrink-0"
+                    aria-label={`Open ${project.title} Case Study`}
+                  >
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </motion.article>
@@ -172,17 +205,17 @@ export function SelectedWorkSection() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Bottom Portfolio Link */}
-        <div className="mt-20 pt-8 border-t border-black/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#858585]">
-            ALL PROJECTS BUILT WITH ARCHITECTURAL DISCIPLINE &amp; ZERO SHORTCUTS
-          </p>
+        {/* Bottom Archive Link Bar */}
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-editorial-sans text-[#858585]">
+          <span className="uppercase tracking-[0.2em]">
+            CLEAR DISTINCTION: CLIENT SYSTEMS • INDEPENDENT R&amp;D • STUDIO FRAMEWORKS
+          </span>
 
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] font-bold text-[#090909] hover:text-[#4878E8] transition-colors"
+            className="inline-flex items-center gap-2 text-white hover:text-[#7864C9] font-semibold uppercase tracking-[0.22em] transition-colors"
           >
-            <span>VIEW FULL ARCHIVE (6 CASE STUDIES)</span>
+            <span>EXPLORE COMPLETE PORTFOLIO (6 CASE STUDIES)</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
         </div>

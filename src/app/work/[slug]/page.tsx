@@ -9,9 +9,9 @@ import {
   ArrowUpRight,
   CheckCircle2,
   ExternalLink,
-  ShieldCheck,
-  Cpu,
-  Layers,
+
+
+
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";

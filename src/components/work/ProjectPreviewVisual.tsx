@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ExternalLink, CheckCircle, Shield, Sparkles, Activity, Layers, Cpu, Award } from "lucide-react";
+import { CheckCircle, Shield, Sparkles, Activity, Layers, Cpu, Award } from "lucide-react";
 
 interface ProjectPreviewProps {
   slug: string;

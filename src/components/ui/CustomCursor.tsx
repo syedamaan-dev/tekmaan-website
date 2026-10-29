@@ -6,7 +6,7 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isPointer, setIsPointer] = useState(false);
+
 
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);

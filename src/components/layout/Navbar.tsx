@@ -87,16 +87,16 @@ export function Navbar() {
             <div className="flex items-center gap-3">
               <Link
                 href="#contact"
-                className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2 rounded-full border border-white/20 text-xs uppercase tracking-[0.2em] font-editorial-sans text-white hover:border-white/60 hover:bg-white/[0.05] transition-all duration-300"
+                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.15)] active:scale-95"
               >
-                <span>LET'S TALK</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-white/70" />
+                <span>LET&apos;S TALK</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
 
               {/* Animated Menu Icon / Hamburger */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="p-2.5 rounded-full border border-white/10 hover:border-white/30 text-white focus:outline-none transition-colors"
+                className="md:hidden p-2.5 rounded-full border border-white/10 hover:border-white/30 text-white focus:outline-none transition-colors"
                 aria-label={menuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={menuOpen}
               >
@@ -154,7 +154,7 @@ export function Navbar() {
             <div className="max-w-5xl mx-auto w-full grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/10 text-xs tracking-wider text-[#858585]">
               <div>
                 <span className="block uppercase text-white mb-1">STUDIO</span>
-                <p>Independent Freelance Studio</p>
+                <p>Independent Digital Studio</p>
                 <p>Direct Engineer Collaboration</p>
               </div>
               <div>

@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
-import { siteConfig } from "@/config/site";
+
 
 export const metadata: Metadata = {
   title: "Process & Delivery Cadence — TEKMAAN",

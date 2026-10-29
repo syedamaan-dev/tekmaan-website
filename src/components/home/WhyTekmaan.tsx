@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
+
 import {
   Users,
   Code2,
@@ -13,7 +13,7 @@ import {
   CheckCircle2,
   Terminal,
 } from "lucide-react";
-import { siteConfig } from "@/config/site";
+
 
 export function WhyTekmaan() {
   return (
@@ -56,7 +56,7 @@ export function WhyTekmaan() {
                 Talk to the Engineer, Not an Account Manager
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                When you share a requirement or give feedback, it doesn't get lost in translation through three layers of agency staff. You work side-by-side with the person writing the code and crafting the UI.
+                When you share a requirement or give feedback, it doesn&apos;t get lost in translation through three layers of agency staff. You work side-by-side with the person writing the code and crafting the UI.
               </p>
 
               <div className="grid grid-cols-2 gap-3 pt-4 border-t border-slate-100">
@@ -117,7 +117,7 @@ export function WhyTekmaan() {
                 Engineered for Sub-Second Speed
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed">
-                We don't use heavy drag-and-drop page builders. Every platform is custom-built with Next.js, static rendering, and edge deployment for top-tier Lighthouse scores.
+                We don&apos;t use heavy drag-and-drop page builders. Every platform is custom-built with Next.js, static rendering, and edge deployment for top-tier Lighthouse scores.
               </p>
             </div>
 

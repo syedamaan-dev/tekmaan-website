@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { CapabilitiesSection } from "@/components/home/CapabilitiesSection";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 
 export const metadata: Metadata = {
@@ -110,6 +111,9 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
+
+      {/* Complete Technology Matrix */}
+      <CapabilitiesSection />
 
       {/* Bottom CTA */}
       <GiantCtaSection />

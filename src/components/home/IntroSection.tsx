@@ -85,7 +85,7 @@ export function IntroSection() {
             </h3>
             <p className="text-sm text-[#858585] leading-relaxed">
               Type-safe codebases built on Next.js, FastAPI, and robust data layers. Sub-second
-              load times and zero technical debt.
+              load times and clean, maintainable architecture.
             </p>
           </div>
 

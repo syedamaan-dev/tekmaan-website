@@ -2,9 +2,9 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+
 import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+
 import { siteConfig } from "@/config/site";
 
 export function AboutSection() {

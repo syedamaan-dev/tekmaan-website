@@ -47,12 +47,12 @@ export const siteConfig = {
   tagline: "Independent Digital Studio",
   headline: "Crafting Digital Experiences.",
   subheadline:
-    "We create distinctive websites, powerful digital products, and thoughtful technology solutions for ambitious ideas.",
+    "We design and build websites, business platforms, and AI-powered solutions for ambitious teams.",
   url: "https://tekmaan.com",
   ogImage: "/images/og-image.jpg",
 
   identity: {
-    type: "Independent Digital Freelance Studio",
+    type: "Independent Digital Studio",
     established: "2026",
     model: "Direct Senior Engineer & Creative Partnership",
     philosophy:
@@ -105,7 +105,7 @@ export const siteConfig = {
       verifiedOutcomes: [
         "Official live production deployment at sruprojectexpo.in",
         "Successfully evaluated multi-department student projects during the live national expo",
-        "Sub-second search and zero-latency grading feedback on handheld tablet devices",
+        "Sub-second search and responsive real-time grading feedback on handheld tablet devices",
       ],
     },
     {
@@ -339,7 +339,7 @@ export const siteConfig = {
       number: "06",
       title: "Maintenance & Optimisation",
       shortDesc:
-        "Dedicated technical stewardship ensuring your digital platforms stay blazing fast, completely secure, and continuously updated.",
+        "Dedicated technical stewardship ensuring your digital platforms stay fast, robustly secured, and continuously maintained.",
       fullDesc:
         "Keep your digital platforms running at peak performance. We provide ongoing code maintenance, security patches, Lighthouse score tuning, and dedicated technical support without agency retainers or hidden fees.",
       category: "Sustained Quality",
