@@ -32,8 +32,8 @@ export function GiantCtaSection() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.03] mb-8 sm:mb-12"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[11px] uppercase tracking-[0.28em] text-[#858585] font-editorial-sans font-medium">
-            NOW ACCEPTING SELECTED PROJECTS
+          <span className="text-[11px] tracking-[0.28em] text-[#858585] font-editorial-sans font-medium">
+            Now accepting selected projects.
           </span>
         </motion.div>
 

@@ -55,9 +55,9 @@ export function PragathiCaseStudy() {
             <span className="text-[11px] px-3.5 py-1 rounded-full bg-white/5 text-[#858585] border border-white/10 uppercase tracking-wider font-editorial-sans">
               SR University, Warangal
             </span>
-            <span className="text-[11px] px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-wider font-editorial-sans flex items-center gap-1.5">
+            <span className="text-[11px] px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 tracking-wider font-editorial-sans flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Production Deployment Verified
+              Now accepting selected projects.
             </span>
           </div>
 
@@ -620,9 +620,16 @@ export function PragathiCaseStudy() {
           {/* Section 10: Natural Conversion Section (Requirement 3) */}
           <section className="p-8 sm:p-12 border border-black/15 bg-gradient-to-br from-white via-white to-black/[0.03] space-y-6">
             <div className="max-w-3xl space-y-4">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#7864C9] block font-semibold font-editorial-sans">
-                STUDIO COLLABORATION
-              </span>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#7864C9] block font-semibold font-editorial-sans">
+                  STUDIO COLLABORATION
+                </span>
+                <span className="w-1 h-1 rounded-full bg-black/20" />
+                <span className="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-editorial-sans">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                  Now accepting selected projects.
+                </span>
+              </div>
               <h2 className="font-editorial-serif text-2xl sm:text-4xl text-[#090909]">
                 Need a Custom Evaluation Platform or University Dashboard?
               </h2>
@@ -679,4 +686,3 @@ export function PragathiCaseStudy() {
     </article>
   );
 }
-

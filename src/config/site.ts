@@ -93,7 +93,7 @@ export const siteConfig = {
       isClientProject: true,
       tagline: "National Innovation Expo Web Hub & Live Mobile Jury Evaluation Console",
       summary:
-        "Architected and deployed the comprehensive digital ecosystem for SR University's flagship national project expo & hackathon. Comprising a high-concurrency public registration portal and a dedicated mobile-first Jury Evaluation Console used by 50+ faculty and industry jurors walking between physical stalls.",
+        "Explore a university expo jury management platform featuring project evaluation workflows, domain-based jury assignment and participant management.",
       clientOrContext: "SR University, Warangal (Institutional Project)",
       heroImage: "/images/projects/pragathi-expo.jpg",
       technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "Firebase / Firestore", "QR Evaluation Engine"],
