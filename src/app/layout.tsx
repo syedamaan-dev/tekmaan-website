@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
 const dotGothic16 = DotGothic16({
   weight: "400",
@@ -28,6 +29,21 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  icons: {
+    icon: [
+      { url: "/assets/brand/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/assets/brand/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/assets/brand/tekmaan-symbol.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/assets/brand/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+  },
   title: {
     default: `${siteConfig.name} — ${siteConfig.tagline}`,
     template: `%s | ${siteConfig.name}`,
@@ -44,10 +60,11 @@ export const metadata: Metadata = {
     "Bespoke Portals",
     "AI Reliability Integration",
     "High-Performance Frontends",
-    "Freelance Engineering Studio",
+    "Founder-led Studio",
   ],
-  authors: [{ name: "TEKMAAN Studio" }],
+  authors: [{ name: "TEKMAAN Studio", url: siteConfig.url }],
   creator: "TEKMAAN Studio",
+  publisher: "TEKMAAN Studio",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -83,6 +100,53 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.tekmaan.in/#website",
+      "name": "TEKMAAN",
+      "alternateName": ["TEKMAAN Studio", "Tekmaan Technologies"],
+      "url": "https://www.tekmaan.in/",
+      "inLanguage": "en-US",
+      "description":
+        "Independent Digital Technology Studio crafting websites, business platforms, and AI-powered solutions.",
+      "publisher": {
+        "@id": "https://www.tekmaan.in/#organization",
+      },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.tekmaan.in/#organization",
+      "name": "TEKMAAN",
+      "alternateName": "TEKMAAN Studio",
+      "url": "https://www.tekmaan.in/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.tekmaan.in/assets/brand/tekmaan-symbol-512.png",
+        "width": 512,
+        "height": 512,
+        "caption": "TEKMAAN Studio Emblem",
+      },
+      "image": "https://www.tekmaan.in/assets/brand/tekmaan-symbol-512.png",
+      "description":
+        "Founder-led independent digital technology studio designing and engineering bespoke web platforms, applications, and reliable AI integrations.",
+      "foundingDate": "2026",
+      "sameAs": [
+        "https://github.com/syedamaan-dev",
+        "https://www.linkedin.com/company/tekmaan",
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "syedamaan.dev@gmail.com",
+        "availableLanguage": ["English", "Hindi"],
+      },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -93,11 +157,19 @@ export default function RootLayout({
       lang="en"
       className={`${dotGothic16.variable} ${alata.variable} scroll-smooth`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-[#090909] text-[#F8F8F6] antialiased selection:bg-[#7864C9]/35 selection:text-white">
-        <CustomCursor />
-        <Navbar />
-        <main className="flex-1 flex flex-col">{children}</main>
-        <Footer />
+        <SmoothScrollProvider>
+          <CustomCursor />
+          <Navbar />
+          <main className="flex-1 flex flex-col">{children}</main>
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,46 +54,59 @@ export function Navbar() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-400 ease-out",
           isScrolled
-            ? "py-4 bg-[#090909]/85 backdrop-blur-md border-b border-white/[0.06]"
+            ? "py-4 bg-[#090909]/90 backdrop-blur-md border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
             : "py-7 bg-transparent border-b border-transparent"
         )}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex items-center justify-between">
-            {/* Left: TEKMAAN Wordmark */}
-            <Link
-              href="/"
-              className="group flex items-baseline gap-2 focus:outline-none"
-              aria-label="TEKMAAN Home"
-            >
-              <span className="font-editorial-serif text-2xl sm:text-3xl text-white transition-opacity group-hover:opacity-90">
-                TEKMAAN
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7864C9] inline-block mb-1" />
-            </Link>
+            {/* Left: TEKMAAN Brand Symbol + Wordmark */}
+            <Magnetic strength={0.15}>
+              <Link
+                href="/"
+                className="group flex items-center gap-2.5 focus:outline-none py-1"
+                aria-label="TEKMAAN Home"
+              >
+                <Image
+                  src="/assets/brand/tekmaan-symbol.svg"
+                  alt="TEKMAAN Symbol"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 object-contain group-hover:scale-105 transition-transform"
+                  priority
+                />
+                <span className="font-editorial-serif text-2xl sm:text-3xl text-white transition-opacity group-hover:opacity-90 tracking-tight">
+                  TEKMAAN
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#7864C9] inline-block mb-1 group-hover:scale-125 transition-transform" />
+              </Link>
+            </Magnetic>
 
             {/* Centre: WORK / SERVICES / ABOUT / CONTACT */}
             <nav className="hidden md:flex items-center gap-9" aria-label="Main Navigation">
               {siteConfig.nav.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="text-xs uppercase tracking-[0.25em] text-[#858585] hover:text-white transition-colors duration-200 font-editorial-sans"
-                >
-                  {item.title}
-                </Link>
+                <Magnetic key={item.title} strength={0.15}>
+                  <Link
+                    href={item.href}
+                    className="text-xs uppercase tracking-[0.25em] text-[#858585] hover:text-white transition-colors duration-200 font-editorial-sans py-1 block"
+                  >
+                    {item.title}
+                  </Link>
+                </Magnetic>
               ))}
             </nav>
 
             {/* Right: LET'S TALK pill button + Animated Menu Icon */}
             <div className="flex items-center gap-3">
-              <Link
-                href="#contact"
-                className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.15)] active:scale-95"
-              >
-                <span>LET&apos;S TALK</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </Link>
+              <Magnetic strength={0.25}>
+                <Link
+                  href="#contact"
+                  className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.15)] active:scale-95"
+                >
+                  <span>LET&apos;S TALK</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </Link>
+              </Magnetic>
 
               {/* Animated Menu Icon / Hamburger */}
               <button

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 
@@ -40,6 +40,89 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
+function TeamMemberCard({ member, index }: { member: TeamMember; index: number }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0, active: false });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    setTilt({
+      x: -y * 7,
+      y: x * 7,
+      active: true,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0, active: false });
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.12 }}
+      className="perspective-1000 flex flex-col h-full"
+    >
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transition: tilt.active ? "transform 0.1s ease-out" : "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+        className="border border-white/10 p-5 sm:p-6 hover:border-[#7864C9]/60 transition-colors duration-300 bg-white/[0.015] hover:bg-white/[0.03] flex flex-col justify-between group transform-style-3d rounded-sm h-full"
+      >
+        {/* Card Header: Number & Founder Tag */}
+        <div className="flex items-center justify-between mb-4">
+          <span className="font-mono text-sm text-[#7864C9] font-bold">
+            {member.number}
+          </span>
+          {member.isFounder ? (
+            <span className="text-[10px] uppercase tracking-[0.22em] text-[#7864C9] font-editorial-sans px-3 py-1 rounded-full border border-[#7864C9]/40 bg-[#7864C9]/10 font-semibold shadow-[0_0_15px_rgba(120,100,201,0.2)]">
+              FOUNDER
+            </span>
+          ) : (
+            <span className="text-[10px] uppercase tracking-[0.25em] text-[#858585] font-editorial-sans">
+              STUDIO TEAM
+            </span>
+          )}
+        </div>
+
+        {/* Photograph with consistent natural framing */}
+        <div className="relative w-full aspect-[4/4.5] overflow-hidden border border-white/10 rounded-sm mb-5 bg-white/[0.02]">
+          <Image
+            src={member.image}
+            alt={`${member.name} — ${member.role}`}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover object-[50%_15%] transition-transform duration-700 ease-out group-hover:scale-105"
+            priority={member.isFounder}
+          />
+        </div>
+
+        {/* Identity & Designation */}
+        <div className="pt-2 border-t border-white/5">
+          <h3 className="font-editorial-serif text-xl sm:text-2xl text-white mb-1.5 transition-colors group-hover:text-white">
+            {member.name}
+          </h3>
+          <p className="text-xs sm:text-sm font-editorial-sans text-[#7864C9] tracking-wide font-medium">
+            {member.role}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export function TeamSection() {
   return (
     <section
@@ -78,52 +161,7 @@ export function TeamSection() {
         */}
         <div className="mt-10 sm:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {teamMembers.map((member, index) => (
-            <motion.div
-              key={member.id}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.12 }}
-              className="border border-white/10 p-5 sm:p-6 hover:border-[#7864C9]/60 transition-all duration-300 bg-white/[0.015] hover:bg-white/[0.03] flex flex-col justify-between group"
-            >
-              {/* Card Header: Number & Founder Tag */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-sm text-[#7864C9] font-bold">
-                  {member.number}
-                </span>
-                {member.isFounder ? (
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-[#7864C9] font-editorial-sans px-3 py-1 rounded-full border border-[#7864C9]/40 bg-[#7864C9]/10 font-semibold">
-                    FOUNDER
-                  </span>
-                ) : (
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#858585] font-editorial-sans">
-                    STUDIO TEAM
-                  </span>
-                )}
-              </div>
-
-              {/* Photograph with consistent natural framing */}
-              <div className="relative w-full aspect-[4/4.5] overflow-hidden border border-white/10 rounded-sm mb-5 bg-white/[0.02]">
-                <Image
-                  src={member.image}
-                  alt={`${member.name} — ${member.role}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover object-[50%_15%] transition-transform duration-500 ease-out group-hover:scale-105"
-                  priority={member.isFounder}
-                />
-              </div>
-
-              {/* Identity & Designation */}
-              <div className="pt-2 border-t border-white/5">
-                <h3 className="font-editorial-serif text-xl sm:text-2xl text-white mb-1.5 transition-colors">
-                  {member.name}
-                </h3>
-                <p className="text-xs sm:text-sm font-editorial-sans text-[#7864C9] tracking-wide font-medium">
-                  {member.role}
-                </p>
-              </div>
-            </motion.div>
+            <TeamMemberCard key={member.id} member={member} index={index} />
           ))}
         </div>
       </div>

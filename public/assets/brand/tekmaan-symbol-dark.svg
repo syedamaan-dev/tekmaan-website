@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="tekmaan-primary-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4878E8" />
+      <stop offset="50%" stop-color="#7864C9" />
+      <stop offset="100%" stop-color="#D64B89" />
+    </linearGradient>
+    <linearGradient id="tekmaan-beam-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7864C9" />
+      <stop offset="100%" stop-color="#4878E8" />
+    </linearGradient>
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Architectural T Monolith -->
+  <!-- Top Crossbar Left Wing -->
+  <path d="M 16 20 L 46 20 L 42 36 L 16 36 Z" fill="#090909" />
+  
+  <!-- Top Crossbar Right Wing (Signature Accent Gradient) -->
+  <path d="M 50 20 L 84 20 L 78 36 L 46 36 Z" fill="url(#tekmaan-primary-grad)" />
+
+  <!-- Central Stem Monolith -->
+  <path d="M 42 36 L 58 36 L 58 82 L 42 74 Z" fill="url(#tekmaan-primary-grad)" />
+
+  <!-- Diagonal Refraction Facet -->
+  <path d="M 42 36 L 58 20 L 58 36 Z" fill="#FFFFFF" opacity="0.3" />
+
+  <!-- Anchor Base Highlight -->
+  <path d="M 42 74 L 58 82 L 42 82 Z" fill="#D64B89" />
+
+  <!-- Precision Luminous Focus Node -->
+  <circle cx="86" cy="18" r="4" fill="#D64B89" filter="url(#soft-glow)" />
+</svg>

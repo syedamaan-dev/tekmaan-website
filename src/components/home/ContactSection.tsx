@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "motion/react";
 import { Loader2, CheckCircle2, AlertCircle, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -124,37 +125,41 @@ export function ContactSection() {
         <div className="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* Left Column: Direct channels and reassurance */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="border border-white/10 p-6 sm:p-7 bg-white/[0.015]">
+            <div className="border border-white/10 p-6 sm:p-7 bg-white/[0.015] hover:border-white/25 transition-colors duration-300">
               <span className="text-xs uppercase tracking-[0.25em] text-[#858585] block mb-2 font-semibold">
                 DIRECT STUDIO EMAIL
               </span>
-              <a
-                href={`mailto:${siteConfig.contact.email}`}
-                className="font-editorial-sans text-xl sm:text-2xl font-bold text-white hover:text-[#7864C9] transition-colors flex items-center gap-2"
-              >
-                <span>{siteConfig.contact.email}</span>
-                <ArrowUpRight className="w-5 h-5 text-[#858585]" />
-              </a>
+              <Magnetic strength={0.2}>
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="font-editorial-sans text-xl sm:text-2xl font-bold text-white hover:text-[#7864C9] transition-colors flex items-center gap-2 group py-1"
+                >
+                  <span>{siteConfig.contact.email}</span>
+                  <ArrowUpRight className="w-5 h-5 text-[#858585] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </Magnetic>
               <p className="text-xs text-[#858585] mt-2">
                 Average response time: under 24 hours. Directly handled by senior engineering.
               </p>
             </div>
 
-            <div className="border border-white/10 p-6 sm:p-7 bg-white/[0.015]">
+            <div className="border border-white/10 p-6 sm:p-7 bg-white/[0.015] hover:border-white/25 transition-colors duration-300">
               <span className="text-xs uppercase tracking-[0.25em] text-[#858585] block mb-2 font-semibold">
                 PHONE &amp; WHATSAPP
               </span>
-              <a
-                href={siteConfig.contact.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-editorial-sans text-xl sm:text-2xl font-bold text-white hover:text-emerald-400 transition-colors flex items-center gap-2"
-              >
-                <span>+91 9063127547</span>
-                <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                  WHATSAPP ↗
-                </span>
-              </a>
+              <Magnetic strength={0.2}>
+                <a
+                  href={siteConfig.contact.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-editorial-sans text-xl sm:text-2xl font-bold text-white hover:text-emerald-400 transition-colors flex items-center gap-2 py-1"
+                >
+                  <span>+91 9063127547</span>
+                  <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                    WHATSAPP ↗
+                  </span>
+                </a>
+              </Magnetic>
               <p className="text-xs text-[#858585] mt-2">
                 Available for direct calls and instant project discussions on WhatsApp.
               </p>
@@ -189,12 +194,14 @@ export function ContactSection() {
                 <p className="text-sm text-[#858585] font-editorial-sans max-w-md mx-auto leading-relaxed">
                   {statusMessage}
                 </p>
-                <button
-                  onClick={handleReset}
-                  className="px-6 py-2.5 rounded-full border border-white/20 text-xs uppercase tracking-[0.2em] font-semibold text-white hover:bg-white hover:text-[#090909] transition-all cursor-pointer"
-                >
-                  Submit Another Inquiry
-                </button>
+                <Magnetic strength={0.3}>
+                  <button
+                    onClick={handleReset}
+                    className="px-6 py-2.5 rounded-full border border-white/20 text-xs uppercase tracking-[0.2em] font-semibold text-white hover:bg-white hover:text-[#090909] transition-all cursor-pointer"
+                  >
+                    Submit Another Inquiry
+                  </button>
+                </Magnetic>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -318,23 +325,25 @@ export function ContactSection() {
                 </div>
 
                 {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.25em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.99] shadow-[0_0_30px_rgba(255,255,255,0.15)]"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>TRANSMITTING INQUIRY...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>TRANSMIT INQUIRY</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
+                <Magnetic strength={0.15}>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.25em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-[0.99] shadow-[0_0_30px_rgba(255,255,255,0.15)] group"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>TRANSMITTING INQUIRY...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>TRANSMIT INQUIRY</span>
+                        <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      </>
+                    )}
+                  </button>
+                </Magnetic>
               </form>
             )}
           </div>

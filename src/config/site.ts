@@ -48,7 +48,7 @@ export const siteConfig = {
   headline: "Crafting Digital Experiences.",
   subheadline:
     "We design and build websites, business platforms, and AI-powered solutions for ambitious teams.",
-  url: "https://tekmaan.com",
+  url: "https://www.tekmaan.in",
   ogImage: "/images/og-image.jpg",
 
   identity: {

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 90" fill="none">
+  <defs>
+    <linearGradient id="hd-tekmaan-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4878E8" />
+      <stop offset="50%" stop-color="#7864C9" />
+      <stop offset="100%" stop-color="#D64B89" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(10, 8) scale(0.74)">
+    <path d="M 16 20 L 46 20 L 42 36 L 16 36 Z" fill="#090909" />
+    <path d="M 50 20 L 84 20 L 78 36 L 46 36 Z" fill="url(#hd-tekmaan-grad)" />
+    <path d="M 42 36 L 58 36 L 58 82 L 42 74 Z" fill="url(#hd-tekmaan-grad)" />
+    <path d="M 42 36 L 58 20 L 58 36 Z" fill="#090909" opacity="0.3" />
+    <path d="M 42 74 L 58 82 L 42 82 Z" fill="#D64B89" />
+    <circle cx="86" cy="18" r="4" fill="#D64B89" />
+  </g>
+
+  <text x="96" y="52" font-family="'DotGothic16', monospace, 'Courier New', sans-serif" font-size="34" font-weight="700" fill="#090909" letter-spacing="1.5">TEKMAAN</text>
+  <circle cx="264" cy="46" r="3.5" fill="#7864C9" />
+  <text x="98" y="70" font-family="'Alata', sans-serif, -apple-system" font-size="9" font-weight="500" fill="#555555" letter-spacing="2.8">INDEPENDENT TECHNOLOGY STUDIO</text>
+</svg>

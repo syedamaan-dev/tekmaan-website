@@ -2,8 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { Magnetic } from "@/components/ui/Magnetic";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -17,7 +19,14 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 pb-12 sm:pb-14 border-b border-white/10">
           {/* Studio positioning */}
           <div className="lg:col-span-5 space-y-3">
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-center gap-2.5">
+              <Image
+                src="/assets/brand/tekmaan-symbol.svg"
+                alt="TEKMAAN Symbol"
+                width={26}
+                height={26}
+                className="w-6.5 h-6.5 object-contain"
+              />
               <span className="font-editorial-serif text-3xl font-extrabold tracking-tight text-white">
                 TEKMAAN
               </span>
@@ -98,22 +107,26 @@ export function Footer() {
               <li>
                 <span className="block text-[10px] uppercase tracking-wider text-[#858585]">NETWORKS</span>
                 <div className="flex items-center gap-5 pt-0.5 uppercase tracking-wider">
-                  <a
-                    href={siteConfig.contact.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-[#7864C9] transition-colors"
-                  >
-                    GITHUB ↗
-                  </a>
-                  <a
-                    href={siteConfig.contact.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white hover:text-[#7864C9] transition-colors"
-                  >
-                    LINKEDIN ↗
-                  </a>
+                  <Magnetic strength={0.25}>
+                    <a
+                      href={siteConfig.contact.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-[#7864C9] transition-colors py-1 inline-block"
+                    >
+                      GITHUB ↗
+                    </a>
+                  </Magnetic>
+                  <Magnetic strength={0.25}>
+                    <a
+                      href={siteConfig.contact.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-[#7864C9] transition-colors py-1 inline-block"
+                    >
+                      LINKEDIN ↗
+                    </a>
+                  </Magnetic>
                 </div>
               </li>
             </ul>
@@ -140,16 +153,18 @@ export function Footer() {
             </Link>
 
             {/* Back to top control */}
-            <button
-              onClick={scrollToTop}
-              className="group flex items-center gap-2 text-white hover:text-[#7864C9] transition-colors cursor-pointer"
-              aria-label="Back to top"
-            >
-              <span className="uppercase tracking-[0.2em]">BACK TO TOP</span>
-              <div className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-                <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
-              </div>
-            </button>
+            <Magnetic strength={0.3}>
+              <button
+                onClick={scrollToTop}
+                className="group flex items-center gap-2 text-white hover:text-[#7864C9] transition-colors cursor-pointer py-1"
+                aria-label="Back to top"
+              >
+                <span className="uppercase tracking-[0.2em]">BACK TO TOP</span>
+                <div className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
+                  <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
+                </div>
+              </button>
+            </Magnetic>
           </div>
         </div>
       </div>
