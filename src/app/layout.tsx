@@ -107,7 +107,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": "https://www.tekmaan.in/#website",
       "name": "TEKMAAN",
-      "alternateName": ["TEKMAAN Studio", "Tekmaan Technologies"],
+      "alternateName": "TEKMAAN Studio",
       "url": "https://www.tekmaan.in/",
       "inLanguage": "en-US",
       "description":
@@ -122,17 +122,9 @@ const jsonLd = {
       "name": "TEKMAAN",
       "alternateName": "TEKMAAN Studio",
       "url": "https://www.tekmaan.in/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.tekmaan.in/assets/brand/tekmaan-symbol-512.png",
-        "width": 512,
-        "height": 512,
-        "caption": "TEKMAAN Studio Emblem",
-      },
+      "description": "Independent Digital Technology Studio.",
+      "logo": "https://www.tekmaan.in/assets/brand/tekmaan-symbol-512.png",
       "image": "https://www.tekmaan.in/assets/brand/tekmaan-symbol-512.png",
-      "description":
-        "Founder-led independent digital technology studio designing and engineering bespoke web platforms, applications, and reliable AI integrations.",
-      "foundingDate": "2026",
       "sameAs": [
         "https://github.com/syedamaan-dev",
         "https://www.linkedin.com/company/tekmaan",
@@ -140,7 +132,7 @@ const jsonLd = {
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "sales",
-        "email": "syedamaan.dev@gmail.com",
+        "email": siteConfig.contact.email,
         "availableLanguage": ["English", "Hindi"],
       },
     },

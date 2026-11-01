@@ -175,6 +175,7 @@ async function run() {
     .resize(512, 512)
     .png({ quality: 100 })
     .toFile(path.join(brandDir, 'tekmaan-symbol-512.png'));
+  fs.copyFileSync(path.join(brandDir, 'tekmaan-symbol-512.png'), path.join(__dirname, '../public/tekmaan-symbol-512.png'));
 
   // 512x512 Transparent Brand Icon
   await sharp(Buffer.from(symbolSvg))
