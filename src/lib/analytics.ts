@@ -43,3 +43,4 @@ export function trackEvent(event: AnalyticsEvent, params: AnalyticsEventParams =
     window.dataLayer.push(["event", event, eventParams]);
   }
 }
+
