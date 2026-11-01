@@ -19,7 +19,13 @@ export interface ProjectItem {
   title: string;
   categoryFilter: "web-design" | "development" | "ai" | "dashboards";
   categoryLabel: string;
-  badge: "Client Engagement" | "Engineering Platform" | "Research & Development" | "Studio Framework";
+  badge:
+    | "Client Engagement"
+    | "Engineering Platform"
+    | "Research & Development"
+    | "Studio Framework"
+    | "Design Exploration"
+    | "Institutional Client Project";
   isClientProject: boolean;
   tagline: string;
   summary: string;
@@ -83,12 +89,12 @@ export const siteConfig = {
       title: "SR University PRAGATHI Expo",
       categoryFilter: "dashboards",
       categoryLabel: "WEB DESIGN / DASHBOARDS",
-      badge: "Client Engagement",
+      badge: "Institutional Client Project",
       isClientProject: true,
       tagline: "National Innovation Expo Web Hub & Live Mobile Jury Evaluation Console",
       summary:
         "Architected and deployed the comprehensive digital ecosystem for SR University's flagship national project expo & hackathon. Comprising a high-concurrency public registration portal and a dedicated mobile-first Jury Evaluation Console used by 50+ faculty and industry jurors walking between physical stalls.",
-      clientOrContext: "SR University, Warangal (Verified Client Project)",
+      clientOrContext: "SR University, Warangal (Institutional Project)",
       heroImage: "/images/projects/pragathi-expo.jpg",
       technologies: ["React", "TypeScript", "Tailwind CSS", "Vite", "Firebase / Firestore", "QR Evaluation Engine"],
       officialUrl: "https://www.sruprojectexpo.in/",
@@ -171,12 +177,12 @@ export const siteConfig = {
       title: "Atelier Monochrome",
       categoryFilter: "web-design",
       categoryLabel: "WEB DESIGN",
-      badge: "Studio Framework",
+      badge: "Design Exploration",
       isClientProject: false,
       tagline: "Digital Exhibition Archive for Brutalist Architecture & Haute Horlogerie",
       summary:
         "An editorial digital experience built to explore high-fashion monochrome photography, Swiss grid layouts, and buttery smooth canvas transitions. Inspired by classical European atelier archives.",
-      clientOrContext: "Studio Exhibition & Design Archive",
+      clientOrContext: "Studio Design Exploration & Archive",
       heroImage: "/images/projects/atelier-monochrome.jpg",
       technologies: ["Next.js", "React", "Motion", "Tailwind CSS", "Editorial Typography"],
       challenge:
@@ -225,12 +231,12 @@ export const siteConfig = {
       title: "Hyperion Orbital OS",
       categoryFilter: "dashboards",
       categoryLabel: "DASHBOARDS / DEVELOPMENT",
-      badge: "Engineering Platform",
+      badge: "Design Exploration",
       isClientProject: false,
       tagline: "High-Density Space Mission Telemetry & Orbital Trajectory Console",
       summary:
         "An exploratory mission control interface designed for satellite ground stations, visualizing orbital tracks, sensor calibrations, telemetry packets, and link health in a distraction-free dark interface.",
-      clientOrContext: "Exploratory Telemetry Interface",
+      clientOrContext: "Conceptual Design Exploration (Telemetry Interface)",
       heroImage: "/images/projects/hyperion-os.jpg",
       technologies: ["React", "TypeScript", "Canvas 2D", "WebSocket Telemetry Protocol", "Tailwind CSS"],
       challenge:

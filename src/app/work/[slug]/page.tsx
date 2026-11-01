@@ -16,6 +16,7 @@ import {
 import { siteConfig } from "@/config/site";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 import { AnalyticsLink } from "@/components/ui/AnalyticsLink";
+import { PragathiCaseStudy } from "@/components/work/PragathiCaseStudy";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -37,11 +38,47 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  if (slug === "pragathi-expo") {
+    return {
+      title: "Pragathi Expo Jury Management Portal | TEKMAAN",
+      description:
+        "Explore a university expo jury management platform featuring project evaluation workflows, domain-based jury assignment and participant management.",
+      alternates: {
+        canonical: "https://www.tekmaan.in/work/pragathi-expo",
+      },
+      openGraph: {
+        title: "Pragathi Expo Jury Management Portal | TEKMAAN",
+        description:
+          "Explore a university expo jury management platform featuring project evaluation workflows, domain-based jury assignment and participant management.",
+        url: "https://www.tekmaan.in/work/pragathi-expo",
+        images: [
+          {
+            url: "/images/projects/pragathi-expo.jpg",
+            width: 1200,
+            height: 630,
+            alt: "SR University PRAGATHI Expo Jury Management Portal — TEKMAAN",
+          },
+        ],
+      },
+    };
+  }
+
   return {
     title: `${project.title} | Case Study — TEKMAAN`,
     description: project.summary,
     alternates: {
       canonical: `https://www.tekmaan.in/work/${project.slug}`,
+    },
+    openGraph: {
+      title: `${project.title} | Case Study — TEKMAAN`,
+      description: project.summary,
+      url: `https://www.tekmaan.in/work/${project.slug}`,
+      images: [
+        {
+          url: project.heroImage,
+          alt: `${project.title} — ${project.tagline}`,
+        },
+      ],
     },
   };
 }
@@ -52,6 +89,10 @@ export default async function CaseStudyPage({ params }: Props) {
 
   if (projectIndex === -1) {
     notFound();
+  }
+
+  if (slug === "pragathi-expo") {
+    return <PragathiCaseStudy />;
   }
 
   const project = siteConfig.projects[projectIndex];
