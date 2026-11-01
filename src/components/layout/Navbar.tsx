@@ -189,22 +189,33 @@ export function Navbar() {
                   WhatsApp: +91 9063127547 ↗
                 </a>
               </div>
-              <div className="flex sm:justify-end items-center gap-6">
+              <div className="flex flex-wrap sm:justify-end items-center gap-5">
                 <a
-                  href={siteConfig.contact.githubUrl}
+                  href={siteConfig.contact.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors uppercase"
+                  className="hover:text-[#D64B89] transition-colors uppercase"
+                  aria-label="TEKMAAN Official Instagram profile (opens in new tab)"
                 >
-                  GITHUB ↗
+                  INSTAGRAM ↗
                 </a>
                 <a
                   href={siteConfig.contact.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors uppercase"
+                  className="hover:text-[#4878E8] transition-colors uppercase"
+                  aria-label="TEKMAAN Official LinkedIn page (opens in new tab)"
                 >
                   LINKEDIN ↗
+                </a>
+                <a
+                  href={siteConfig.contact.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#7864C9] transition-colors uppercase"
+                  aria-label="TEKMAAN GitHub (opens in new tab)"
+                >
+                  GITHUB ↗
                 </a>
               </div>
             </div>

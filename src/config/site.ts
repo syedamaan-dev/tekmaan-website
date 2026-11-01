@@ -66,7 +66,8 @@ export const siteConfig = {
     whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+91 9063127547",
     whatsappLink: "https://wa.me/919063127547",
     githubUrl: "https://github.com/syedamaan-dev",
-    linkedinUrl: "https://www.linkedin.com/company/tekmaan",
+    instagramUrl: "https://www.instagram.com/tekmaan.in/",
+    linkedinUrl: "https://www.linkedin.com/company/tekmaan/",
   },
 
   nav: [

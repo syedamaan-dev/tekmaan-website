@@ -127,7 +127,9 @@ const jsonLd = {
       "logo": "https://www.tekmaan.in/tekmaan-symbol-512.png",
       "image": "https://www.tekmaan.in/tekmaan-symbol-512.png",
       "sameAs": [
-        "https://github.com/syedamaan-dev",
+        "https://www.instagram.com/tekmaan.in/",
+        "https://www.linkedin.com/company/tekmaan/",
+        "https://github.com/syedamaan-dev"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
