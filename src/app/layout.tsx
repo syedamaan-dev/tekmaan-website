@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   alternates: {
-    canonical: siteConfig.url,
+    canonical: "https://www.tekmaan.in/",
   },
   icons: {
     icon: [
@@ -113,7 +113,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": "https://www.tekmaan.in/#website",
       "name": "TEKMAAN",
-      "alternateName": "TEKMAAN Studio",
+      "alternateName": ["TEKMAAN Studio", "tekmaan.in"],
       "url": "https://www.tekmaan.in/",
       "inLanguage": "en-US",
       "description":
@@ -126,7 +126,7 @@ const jsonLd = {
       "@type": "Organization",
       "@id": "https://www.tekmaan.in/#organization",
       "name": "TEKMAAN",
-      "alternateName": "TEKMAAN Studio",
+      "alternateName": ["TEKMAAN Studio", "tekmaan.in"],
       "url": "https://www.tekmaan.in/",
       "description": "Independent Digital Technology Studio.",
       "logo": "https://www.tekmaan.in/tekmaan-symbol-512.png",
