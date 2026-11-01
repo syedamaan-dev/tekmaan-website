@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { Loader2, CheckCircle2, AlertCircle, ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { trackEvent } from "@/lib/analytics";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -68,6 +69,11 @@ export function ContactSection() {
 
       setSubmitStatus("success");
       setStatusMessage(result.message || "Your project inquiry has been received!");
+      trackEvent("generate_lead", {
+        button_location: "home_contact_section",
+        service_category: formData.service || "Websites & E-commerce",
+        lead_type: "contact_inquiry",
+      });
     } catch {
       setSubmitStatus("error");
       setStatusMessage("Network error encountered. Please check your connection or email us directly.");
@@ -132,6 +138,7 @@ export function ContactSection() {
               <Magnetic strength={0.2}>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
+                  onClick={() => trackEvent("email_click", { button_location: "contact_section" })}
                   className="font-editorial-sans text-xl sm:text-2xl font-bold text-white hover:text-[#7864C9] transition-colors flex items-center gap-2 group py-1"
                 >
                   <span>{siteConfig.contact.email}</span>
@@ -150,6 +157,7 @@ export function ContactSection() {
               <Magnetic strength={0.2}>
                 <a
                   href={siteConfig.contact.whatsappLink}
+                  onClick={() => trackEvent("whatsapp_click", { button_location: "contact_section" })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-editorial-sans text-xl sm:text-2xl font-bold text-white hover:text-emerald-400 transition-colors flex items-center gap-2 py-1"

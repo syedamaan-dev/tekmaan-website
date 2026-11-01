@@ -69,7 +69,19 @@ export default function PrivacyPage() {
 
             <section className="space-y-3">
               <h2 className="font-editorial-sans text-xl font-bold text-white">
-                04. Contact Regarding Data
+                04. Web Analytics (Google Analytics 4)
+              </h2>
+              <p>
+                We use Google Analytics 4 (Measurement ID: G-6C54V6LV90) to measure aggregate website traffic, page navigation, and engagement events (such as button clicks and form completions) across our public pages.
+              </p>
+              <p>
+                Google Analytics uses first-party cookies to collect non-personally identifiable technical information. We do not transmit names, email addresses, phone numbers, or inquiry message contents to Google Analytics. You can prevent Google Analytics tracking across web platforms using standard browser privacy settings or Google&apos;s Analytics Opt-out Browser Add-on.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="font-editorial-sans text-xl font-bold text-white">
+                05. Contact Regarding Data
               </h2>
               <p>
                 To request deletion or verification of any communications, contact our studio directly at{" "}

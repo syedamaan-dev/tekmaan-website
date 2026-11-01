@@ -8,6 +8,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { trackEvent } from "@/lib/analytics";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -100,7 +101,8 @@ export function Navbar() {
             <div className="flex items-center gap-3">
               <Magnetic strength={0.25}>
                 <Link
-                  href="#contact"
+                  href="/contact"
+                  onClick={() => trackEvent("contact_cta_click", { button_location: "navbar" })}
                   className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.15)] active:scale-95"
                 >
                   <span>LET&apos;S TALK</span>
@@ -176,12 +178,14 @@ export function Navbar() {
                 <span className="block uppercase text-white mb-1">DIRECT INQUIRIES</span>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
+                  onClick={() => trackEvent("email_click", { button_location: "navbar_overlay" })}
                   className="hover:text-white transition-colors block"
                 >
                   {siteConfig.contact.email}
                 </a>
                 <a
                   href="https://wa.me/919063127547"
+                  onClick={() => trackEvent("whatsapp_click", { button_location: "navbar_overlay" })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:text-emerald-300 transition-colors block mt-1"

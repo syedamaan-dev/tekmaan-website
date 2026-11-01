@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown, HelpCircle, ArrowUpRight, MessageSquare } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -143,6 +144,7 @@ export function FaqSection() {
 
           <Link
             href="/contact"
+            onClick={() => trackEvent("contact_cta_click", { button_location: "faq" })}
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold text-white bg-[#5266F5] hover:bg-[#4355DE] transition-colors shrink-0"
           >
             <span>Reach Out Directly</span>

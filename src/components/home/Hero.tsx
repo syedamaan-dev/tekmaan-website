@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { ArrowUpRight, ArrowDown, Sparkles } from "lucide-react";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { trackEvent } from "@/lib/analytics";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -178,6 +179,7 @@ export function Hero() {
             <Magnetic strength={0.25}>
               <Link
                 href="/contact"
+                onClick={() => trackEvent("contact_cta_click", { button_location: "hero" })}
                 className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.15)] active:scale-95"
               >
                 <span>START A PROJECT</span>

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ArrowUpRight, Mail, MessageSquare } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { ContactSection } from "@/components/home/ContactSection";
+import { AnalyticsLink } from "@/components/ui/AnalyticsLink";
 
 export const metadata: Metadata = {
   title: "Contact TEKMAAN | Start Your Digital Project",
@@ -38,15 +39,19 @@ export default function ContactPage() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
+            <AnalyticsLink
+              event="email_click"
+              eventParams={{ button_location: "contact_header" }}
               href={`mailto:${siteConfig.contact.email}`}
               className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white text-xs font-editorial-sans uppercase tracking-[0.2em] transition-colors"
             >
               <Mail className="w-3.5 h-3.5 text-[#7864C9]" />
               <span>{siteConfig.contact.email}</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#858585]" />
-            </a>
-            <a
+            </AnalyticsLink>
+            <AnalyticsLink
+              event="whatsapp_click"
+              eventParams={{ button_location: "contact_header" }}
               href="https://wa.me/919063127547"
               target="_blank"
               rel="noopener noreferrer"
@@ -55,7 +60,7 @@ export default function ContactPage() {
               <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
               <span>WhatsApp: +91 9063127547</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" />
-            </a>
+            </AnalyticsLink>
           </div>
         </div>
       </section>

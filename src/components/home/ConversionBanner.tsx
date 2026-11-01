@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight, Mail, Sparkles, ShieldCheck, Zap } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { trackEvent } from "@/lib/analytics";
 
 export function ConversionBanner() {
   return (
@@ -36,6 +37,7 @@ export function ConversionBanner() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
               <Link
                 href="/contact"
+                onClick={() => trackEvent("contact_cta_click", { button_location: "conversion_banner" })}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-heading font-semibold text-white bg-gradient-to-r from-[#5266F5] to-[#41C9D7] hover:shadow-[0_0_30px_rgba(82,102,245,0.4)] transition-all active:scale-95"
               >
                 <span>Start a Project Inquiry</span>
@@ -44,6 +46,7 @@ export function ConversionBanner() {
 
               <a
                 href={`mailto:${siteConfig.contact.email}`}
+                onClick={() => trackEvent("email_click", { button_location: "conversion_banner" })}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-heading font-medium text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all"
               >
                 <Mail className="w-4 h-4 text-[#41C9D7]" />

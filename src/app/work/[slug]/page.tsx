@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
+import { AnalyticsLink } from "@/components/ui/AnalyticsLink";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -106,13 +107,15 @@ export default async function CaseStudyPage({ params }: Props) {
               </a>
             )}
 
-            <Link
+            <AnalyticsLink
+              event="contact_cta_click"
+              eventParams={{ button_location: "case_study" }}
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.2em] text-white bg-white/5 hover:bg-white/10 border border-white/15 transition-all"
             >
               <span>INQUIRE ABOUT SIMILAR ARCHITECTURE</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#7864C9]" />
-            </Link>
+            </AnalyticsLink>
           </div>
         </div>
       </section>

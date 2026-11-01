@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUp } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { trackEvent } from "@/lib/analytics";
 import { Magnetic } from "@/components/ui/Magnetic";
 
 function InstagramIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
@@ -124,7 +125,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-white transition-colors">
+                <Link href="/contact" className="hover:text-white transition-colors">
                   05 // CONTACT
                 </Link>
               </li>
@@ -141,6 +142,7 @@ export function Footer() {
                 <span className="block text-[10px] uppercase tracking-wider text-[#858585]">EMAIL</span>
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
+                  onClick={() => trackEvent("email_click", { button_location: "footer" })}
                   className="text-white hover:text-[#7864C9] transition-colors"
                 >
                   {siteConfig.contact.email}
@@ -150,6 +152,7 @@ export function Footer() {
                 <span className="block text-[10px] uppercase tracking-wider text-[#858585]">PHONE &amp; WHATSAPP</span>
                 <a
                   href="https://wa.me/919063127547"
+                  onClick={() => trackEvent("whatsapp_click", { button_location: "footer" })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white hover:text-[#7864C9] transition-colors flex items-center gap-2"

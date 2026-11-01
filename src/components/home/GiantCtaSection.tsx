@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 export function GiantCtaSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,6 +59,7 @@ export function GiantCtaSection() {
         <div className="mt-10 sm:mt-14">
           <Link
             href="/contact"
+            onClick={() => trackEvent("contact_cta_click", { button_location: "giant_cta" })}
             className="group inline-flex items-center gap-3 px-9 py-4 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.25em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.2)] active:scale-95"
           >
             <span>START YOUR PROJECT</span>

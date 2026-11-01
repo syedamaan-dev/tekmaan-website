@@ -12,6 +12,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { trackEvent } from "@/lib/analytics";
 
 function ContactFormInner() {
   const searchParams = useSearchParams();
@@ -81,6 +82,11 @@ function ContactFormInner() {
 
       setSubmitStatus("success");
       setStatusMessage(result.message || "Your project inquiry has been received!");
+      trackEvent("generate_lead", {
+        button_location: "contact_page_form",
+        service_category: formData.service || "General Inquiry",
+        lead_type: "contact_inquiry",
+      });
     } catch {
       setSubmitStatus("error");
       setStatusMessage("Network error encountered. Please check your connection or email us directly.");
