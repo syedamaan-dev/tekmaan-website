@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     icon: [
       { url: "/assets/brand/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/assets/brand/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/tekmaan-symbol-512.png", sizes: "512x512", type: "image/png" },
       { url: "/assets/brand/tekmaan-symbol.svg", type: "image/svg+xml" },
       { url: "/favicon.ico", sizes: "any" },
     ],
@@ -123,11 +124,10 @@ const jsonLd = {
       "alternateName": "TEKMAAN Studio",
       "url": "https://www.tekmaan.in/",
       "description": "Independent Digital Technology Studio.",
-      "logo": "https://www.tekmaan.in/assets/brand/tekmaan-symbol-512.png",
-      "image": "https://www.tekmaan.in/assets/brand/tekmaan-symbol-512.png",
+      "logo": "https://www.tekmaan.in/tekmaan-symbol-512.png",
+      "image": "https://www.tekmaan.in/tekmaan-symbol-512.png",
       "sameAs": [
         "https://github.com/syedamaan-dev",
-        "https://www.linkedin.com/company/tekmaan",
       ],
       "contactPoint": {
         "@type": "ContactPoint",
