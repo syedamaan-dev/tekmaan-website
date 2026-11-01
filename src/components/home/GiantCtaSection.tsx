@@ -30,9 +30,9 @@ export function GiantCtaSection() {
           viewport={{ once: true }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/15 bg-white/[0.03] mb-8 sm:mb-12"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#D64B89] animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-[11px] uppercase tracking-[0.28em] text-[#858585] font-editorial-sans font-medium">
-            NOW ACCEPTING Q1/Q2 SELECT ENGAGEMENTS
+            NOW ACCEPTING SELECTED PROJECTS
           </span>
         </motion.div>
 
@@ -57,7 +57,7 @@ export function GiantCtaSection() {
         {/* CTA Button */}
         <div className="mt-10 sm:mt-14">
           <Link
-            href="#contact"
+            href="/contact"
             className="group inline-flex items-center gap-3 px-9 py-4 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.25em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.2)] active:scale-95"
           >
             <span>START YOUR PROJECT</span>

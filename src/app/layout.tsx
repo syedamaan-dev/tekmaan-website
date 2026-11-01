@@ -46,10 +46,11 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   title: {
-    default: `${siteConfig.name} — ${siteConfig.tagline}`,
-    template: `%s | ${siteConfig.name}`,
+    default: "TEKMAAN | Website Development, AI & Digital Solutions",
+    template: "%s",
   },
-  description: siteConfig.headline + " " + siteConfig.subheadline,
+  description:
+    "TEKMAAN is an independent digital technology studio building premium websites, custom web applications, AI-powered solutions and digital products.",
   keywords: [
     "TEKMAAN",
     "Digital Studio",
@@ -70,8 +71,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
-    description: siteConfig.headline,
+    title: "TEKMAAN | Website Development, AI & Digital Solutions",
+    description:
+      "TEKMAAN is an independent digital technology studio building premium websites, custom web applications, AI-powered solutions and digital products.",
     siteName: siteConfig.name,
     images: [
       {
@@ -84,8 +86,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.tagline}`,
-    description: siteConfig.headline,
+    title: "TEKMAAN | Website Development, AI & Digital Solutions",
+    description:
+      "TEKMAAN is an independent digital technology studio building premium websites, custom web applications, AI-powered solutions and digital products.",
     images: [siteConfig.ogImage],
   },
   robots: {

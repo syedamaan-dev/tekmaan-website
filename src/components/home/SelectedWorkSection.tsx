@@ -104,7 +104,7 @@ function ProjectCard3D({ project, index }: { project: ProjectItem; index: number
             >
               <Image
                 src={project.heroImage}
-                alt={project.title}
+                alt={`${project.title} — ${project.tagline}`}
                 fill
                 className="object-cover object-top filter grayscale contrast-110 group-hover:scale-105 group-hover:filter-none transition-all duration-700 ease-out"
                 sizes="(max-width: 768px) 100vw, 33vw"

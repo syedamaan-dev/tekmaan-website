@@ -7,9 +7,18 @@ import { CapabilitiesSection } from "@/components/home/CapabilitiesSection";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 
 export const metadata: Metadata = {
-  title: "Services & Specialisations — TEKMAAN",
+  title: "Website Development, AI & Software Services | TEKMAAN",
   description:
-    "Explore TEKMAAN's 6 core disciplines: Website Design, Full-Stack Development, UI/UX Design, Custom Portals & Dashboards, AI Integration, and Ongoing SLA Maintenance.",
+    "Explore TEKMAAN's website development, e-commerce, full-stack software engineering, UI/UX design, AI integration and business dashboard services.",
+  alternates: {
+    canonical: `${siteConfig.url}/services`,
+  },
+  openGraph: {
+    title: "Website Development, AI & Software Services | TEKMAAN",
+    description:
+      "Explore TEKMAAN's website development, e-commerce, full-stack software engineering, UI/UX design, AI integration and business dashboard services.",
+    url: `${siteConfig.url}/services`,
+  },
 };
 
 export default function ServicesPage() {
@@ -100,7 +109,7 @@ export default function ServicesPage() {
                 </span>
 
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.2em] text-white bg-[#090909] hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] transition-all"
                 >
                   <span>INQUIRE ABOUT {service.title}</span>

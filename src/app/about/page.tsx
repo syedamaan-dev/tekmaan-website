@@ -7,9 +7,12 @@ import { siteConfig } from "@/config/site";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 
 export const metadata: Metadata = {
-  title: "About Studio — TEKMAAN",
+  title: "About TEKMAAN | Independent Digital Technology Studio",
   description:
-    "Learn about TEKMAAN, an independent digital technology studio delivering senior engineering, modern product design, and architectural precision.",
+    "Discover TEKMAAN's founder-led approach to website development, software engineering, AI solutions and thoughtful digital product creation.",
+  alternates: {
+    canonical: "https://www.tekmaan.in/about",
+  },
 };
 
 export default function AboutPage() {

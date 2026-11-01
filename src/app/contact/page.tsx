@@ -5,9 +5,12 @@ import { siteConfig } from "@/config/site";
 import { ContactSection } from "@/components/home/ContactSection";
 
 export const metadata: Metadata = {
-  title: "Contact & Project Inquiries — TEKMAAN",
+  title: "Contact TEKMAAN | Start Your Digital Project",
   description:
-    "Direct client inquiry channel for TEKMAAN Studio. Connect directly with our senior engineer to discuss your website, application, or digital portal.",
+    "Get in touch with TEKMAAN to discuss your upcoming website, custom software, business dashboard or AI solution with our founder and senior engineers.",
+  alternates: {
+    canonical: "https://www.tekmaan.in/contact",
+  },
 };
 
 export default function ContactPage() {

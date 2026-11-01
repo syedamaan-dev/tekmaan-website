@@ -5,9 +5,12 @@ import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 
 
 export const metadata: Metadata = {
-  title: "Process & Delivery Cadence — TEKMAAN",
+  title: "Our Development Process | TEKMAAN",
   description:
-    "Discover TEKMAAN's 4-step engineering and design methodology: Discover, Design, Develop, and Launch.",
+    "Explore TEKMAAN's disciplined 4-stage delivery process from initial discovery and visual architecture to full-stack engineering and production launch.",
+  alternates: {
+    canonical: "https://www.tekmaan.in/process",
+  },
 };
 
 export default function ProcessPage() {

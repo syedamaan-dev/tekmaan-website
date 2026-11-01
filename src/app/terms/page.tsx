@@ -5,8 +5,12 @@ import { ArrowLeft } from "lucide-react";
 
 
 export const metadata: Metadata = {
-  title: "Terms of Service — TEKMAAN",
-  description: "Terms of service and engagement standards for TEKMAAN Studio.",
+  title: "Terms of Service | TEKMAAN",
+  description:
+    "Review TEKMAAN's terms of service, intellectual property transfer commitments, and client engagement framework.",
+  alternates: {
+    canonical: "https://www.tekmaan.in/terms",
+  },
 };
 
 export default function TermsPage() {

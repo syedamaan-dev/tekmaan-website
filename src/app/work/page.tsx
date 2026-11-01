@@ -4,9 +4,12 @@ import { SelectedWorkSection } from "@/components/home/SelectedWorkSection";
 import { GiantCtaSection } from "@/components/home/GiantCtaSection";
 
 export const metadata: Metadata = {
-  title: "Selected Work & Case Studies — TEKMAAN",
+  title: "Projects & Software Development Case Studies | TEKMAAN",
   description:
-    "Explore TEKMAAN's verified portfolio: SR University PRAGATHI Expo & Jury Portal, AEGIS-X AI reliability platform, and AEGIS-PRISM neural stress engine.",
+    "Explore TEKMAAN's selected work across verified client projects, independent AI research platforms and digital product development.",
+  alternates: {
+    canonical: "https://www.tekmaan.in/work",
+  },
 };
 
 export default function WorkPage() {

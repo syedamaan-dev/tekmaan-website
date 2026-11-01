@@ -10,10 +10,10 @@ interface ProofItem {
 }
 
 const proofItems: ProofItem[] = [
-  { label: "10+ Projects Built", sub: "Verified & Production" },
-  { label: "Web & Software", sub: "Platforms & Systems" },
-  { label: "AI & Automation", sub: "Applied Engineering" },
-  { label: "Direct Senior Engineering", sub: "Zero Middlemen", highlight: true },
+  { label: "Production Platforms", sub: "Web, AI & Software" },
+  { label: "Direct Engineering", sub: "Zero Middleman Dilution" },
+  { label: "100% IP Ownership", sub: "Clean Repository Transfer", highlight: true },
+  { label: "Now Accepting Work", sub: "Selected Client Projects" },
 ];
 
 export function ProofStrip() {
@@ -57,4 +57,3 @@ export function ProofStrip() {
     </section>
   );
 }
-

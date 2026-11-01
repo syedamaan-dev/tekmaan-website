@@ -170,14 +170,14 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.45, ease: "easeOut" }}
           className="mt-8 sm:mt-12 max-w-4xl flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 pt-6 border-t border-white/10"
         >
-          <p className="text-sm sm:text-base text-[#858585] leading-relaxed font-editorial-sans max-w-lg">
-            We design and build websites, business platforms, and AI-powered solutions for ambitious teams.
+          <p className="text-sm sm:text-base text-[#858585] leading-relaxed font-editorial-sans max-w-xl">
+            Founder-led independent digital technology studio. We engineer high-performance websites, custom web applications, e-commerce platforms, and applied AI solutions for ambitious teams.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 sm:gap-4 shrink-0">
             <Magnetic strength={0.25}>
               <Link
-                href="#contact"
+                href="/contact"
                 className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full bg-white text-[#090909] font-editorial-sans text-xs uppercase tracking-[0.2em] font-bold hover:bg-gradient-to-r hover:from-[#4878E8] hover:via-[#7864C9] hover:to-[#D64B89] hover:text-white transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.15)] active:scale-95"
               >
                 <span>START A PROJECT</span>
@@ -187,7 +187,7 @@ export function Hero() {
 
             <Magnetic strength={0.2}>
               <Link
-                href="#work"
+                href="/work"
                 className="group inline-flex items-center gap-2.5 px-5 sm:px-6 py-3.5 rounded-full border border-white/20 bg-white/[0.03] text-white font-editorial-sans text-xs uppercase tracking-[0.2em] font-semibold hover:border-white/50 hover:bg-white/[0.08] transition-all duration-300 active:scale-95"
               >
                 <span>EXPLORE OUR WORK</span>
@@ -205,13 +205,18 @@ export function Hero() {
         transition={{ duration: 1, delay: 0.7 }}
         className="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 sm:pt-6 border-t border-white/10 text-xs font-editorial-sans text-[#858585] relative z-10"
       >
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center gap-4 sm:gap-6">
           <span className="uppercase tracking-[0.2em] text-[#858585]">
             FOUNDER-LED STUDIO
           </span>
           <span className="hidden sm:inline-block w-1 h-1 rounded-full bg-white/20" />
           <span className="uppercase tracking-[0.2em] text-[#858585]">
             DIRECT SENIOR ENGINEERING
+          </span>
+          <span className="hidden sm:inline-block w-1 h-1 rounded-full bg-white/20" />
+          <span className="inline-flex items-center gap-1.5 uppercase tracking-[0.2em] text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Now accepting selected projects
           </span>
         </div>
 

@@ -5,8 +5,12 @@ import { ArrowLeft } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — TEKMAAN",
-  description: "Privacy policy and data stewardship principles of TEKMAAN Studio.",
+  title: "Privacy Policy | TEKMAAN",
+  description:
+    "Read TEKMAAN's privacy policy and client data confidentiality practices for digital technology, web engineering, and software projects.",
+  alternates: {
+    canonical: "https://www.tekmaan.in/privacy",
+  },
 };
 
 export default function PrivacyPage() {

@@ -37,8 +37,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${project.title} — Case Study | TEKMAAN`,
+    title: `${project.title} | Case Study — TEKMAAN`,
     description: project.summary,
+    alternates: {
+      canonical: `https://www.tekmaan.in/work/${project.slug}`,
+    },
   };
 }
 
@@ -104,7 +107,7 @@ export default async function CaseStudyPage({ params }: Props) {
             )}
 
             <Link
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.2em] text-white bg-white/5 hover:bg-white/10 border border-white/15 transition-all"
             >
               <span>INQUIRE ABOUT SIMILAR ARCHITECTURE</span>
@@ -120,7 +123,7 @@ export default async function CaseStudyPage({ params }: Props) {
           <div className="relative aspect-[16/10] w-full bg-[#EAEAE8] border border-black/15 overflow-hidden shadow-lg">
             <Image
               src={project.heroImage}
-              alt={project.title}
+              alt={`${project.title} — ${project.tagline}`}
               fill
               priority
               className="object-cover object-top"
